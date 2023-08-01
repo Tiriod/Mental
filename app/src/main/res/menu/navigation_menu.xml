@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><!-- navigation_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/selector_home"
+        android:title="首页" />
+    <item
+        android:id="@+id/AIConsult"
+        android:icon="@drawable/selector_aiconsult"
+        android:title="AI咨询" />
+    <item
+        android:id="@+id/shareLoop"
+        android:icon="@drawable/selector_shareloop"
+        android:title="分享圈" />
+    <item
+        android:id="@+id/mine"
+        android:icon="@drawable/selector_mine"
+        android:title="我的" />
+</menu>

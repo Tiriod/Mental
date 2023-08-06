@@ -75,5 +75,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
 
     public interface OnModuleClickListener {
         void onModuleClick(int position);
+
+        void onFunctionClick(int position);
     }
 }

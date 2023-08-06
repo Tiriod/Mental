@@ -1,5 +1,6 @@
 package com.example.mental.Adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,16 @@ import java.util.List;
 public class FunctionAdapter extends RecyclerView.Adapter<FunctionAdapter.FunctionViewHolder> {
 
     private List<FunctionModule> functionModules;
+    private OnFunctionClickListener functionClickListener;
 
-    public FunctionAdapter(List<FunctionModule> functionModules) {
+    public FunctionAdapter(List<FunctionModule> functionModules, OnFunctionClickListener functionClickListener) {
         this.functionModules = functionModules;
+        this.functionClickListener = functionClickListener;
+    }
+
+    // 声明 OnFunctionClickListener 接口
+    public interface OnFunctionClickListener {
+        void onFunctionClick(int position);
     }
 
     @NonNull
@@ -29,11 +37,23 @@ public class FunctionAdapter extends RecyclerView.Adapter<FunctionAdapter.Functi
         return new FunctionViewHolder(itemView);
     }
 
+    @SuppressLint("RecyclerView")
     @Override
-    public void onBindViewHolder(@NonNull FunctionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FunctionViewHolder holder, final int position) {
         FunctionModule functionModule = functionModules.get(position);
         holder.moduleIcon.setImageResource(functionModule.getIconResId());
         holder.moduleName.setText(functionModule.getModuleName());
+
+        // 设置点击监听器
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 调用接口的方法，在点击事件中处理点击事件
+                if (functionClickListener != null) {
+                    functionClickListener.onFunctionClick(position);
+                }
+            }
+        });
     }
 
     @Override

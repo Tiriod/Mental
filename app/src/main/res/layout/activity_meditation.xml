@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 添加头部标签的 RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/MeditationHeaderRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+    <!--资源显示组件-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp">
+        <!--冥想内容类别选择-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/MeditationChoice"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+        <!--页面滚动视图-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--冥想内容显示窗口-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--名词介绍-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/MeditationIntroduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+                <!--资源内容显示窗口-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/MeditationItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

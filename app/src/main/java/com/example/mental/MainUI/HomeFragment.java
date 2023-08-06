@@ -1,5 +1,6 @@
 package com.example.mental.MainUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,16 +15,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.mental.Adapter.ActivityAdapter;
 import com.example.mental.Adapter.BannerAdapter;
 import com.example.mental.Adapter.FunctionAdapter;
 import com.example.mental.Adapter.ModuleAdapter;
+import com.example.mental.Definition.ActivityItem;
 import com.example.mental.Definition.FunctionModule;
+import com.example.mental.FunctionUI.AnalyzeActivity;
+import com.example.mental.FunctionUI.FoodActivity;
+import com.example.mental.FunctionUI.GameActivity;
+import com.example.mental.FunctionUI.MeditationActivity;
+import com.example.mental.FunctionUI.NoteActivity;
+import com.example.mental.FunctionUI.ReadActivity;
+import com.example.mental.ModuleUI.CameraModuleActivity;
+import com.example.mental.ModuleUI.TalkModuleActivity;
+import com.example.mental.ModuleUI.TestModuleActivity;
 import com.example.mental.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClickListener {
+public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClickListener, FunctionAdapter.OnFunctionClickListener {
     //
     private ViewPager2 viewPager;
     private List<Integer> imageList;
@@ -81,34 +93,81 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         functionModules.add(new FunctionModule(R.drawable.icon_function_food, "心身滋养"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_note, "心绪记录"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_analyze, "心情解析"));
-        functionModules.add(new FunctionModule(R.drawable.icon_function_read, "心理探究"));
+        functionModules.add(new FunctionModule(R.drawable.icon_function_read, "心理探索"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_game, "心境迷航"));
-
-        // 初始化功能模块 RecyclerView
+        // 3.子功能模块:初始化功能模块 RecyclerView
         RecyclerView functionRecyclerView = view.findViewById(R.id.functionRecyclerView);
         LinearLayoutManager layoutManager_light = new GridLayoutManager(requireContext(), 2);
         functionRecyclerView.setLayoutManager(layoutManager_light);
-
-        FunctionAdapter functionModuleAdapter = new FunctionAdapter(functionModules);
+        // 将点击监听器传递给 FunctionAdapter
+        FunctionAdapter functionModuleAdapter = new FunctionAdapter(functionModules, this);
         functionRecyclerView.setAdapter(functionModuleAdapter);
 
+        // 4.活动栏模块:初始化
+        // 初始化活动数据列表
+        List<ActivityItem> activityList = new ArrayList<>();
+        activityList.add(new ActivityItem(R.drawable.image_activity_1));
+
+        // 初始化活动栏 RecyclerView
+        RecyclerView activityRecyclerView = view.findViewById(R.id.activityRecyclerView);
+        LinearLayoutManager activityLayoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        activityRecyclerView.setLayoutManager(activityLayoutManager);
+
+        ActivityAdapter activityAdapter = new ActivityAdapter(activityList);
+        activityRecyclerView.setAdapter(activityAdapter);
         return view;
     }
 
+
+    // 1.主题模块:点击跳转页面事件
     @Override
     public void onModuleClick(int position) {
-        // Handle click event based on the module position
+        // 根据模块位置处理点击事件
         switch (position) {
             case 0:
-                // Handle click on the first module
+                // "测一测"模块: 页面跳转
+                startActivity(new Intent(requireContext(), TestModuleActivity.class));
                 break;
             case 1:
-                // Handle click on the second module
+                // "照一照"模块: 页面跳转
+                startActivity(new Intent(requireContext(), CameraModuleActivity.class));
                 break;
             case 2:
-                // Handle click on the third module
+                // "说一说"模块: 页面跳转
+                startActivity(new Intent(requireContext(), TalkModuleActivity.class));
                 break;
             // Add more cases if needed for other modules
+        }
+    }
+    @Override
+    public void onFunctionClick(int position) {
+        // 根据子功能模块位置处理点击事件
+        switch (position) {
+            case 0:
+                // "心灵冥想"模块: 页面跳转
+                startActivity(new Intent(requireContext(), MeditationActivity.class));
+                break;
+            case 1:
+                // "心身滋养"模块: 页面跳转
+                startActivity(new Intent(requireContext(), FoodActivity.class));
+                break;
+            case 2:
+                // "心绪记录"模块: 页面跳转
+                startActivity(new Intent(requireContext(), NoteActivity.class));
+                break;
+            case 3:
+                // "心情解析"模块: 页面跳转
+                startActivity(new Intent(requireContext(), AnalyzeActivity.class));
+                break;
+            case 4:
+                // "心理探究"模块: 页面跳转
+                startActivity(new Intent(requireContext(), ReadActivity.class));
+                break;
+            case 5:
+                // "心境迷航"模块: 页面跳转
+                startActivity(new Intent(requireContext(), GameActivity.class));
+                break;
+            // Add more cases if needed for other function modules
         }
     }
 }

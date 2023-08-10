@@ -59,7 +59,6 @@
                 android:layout_margin="10dp"
                 android:clipToPadding="false"
                 android:orientation="vertical" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/activityRecyclerView"
                 android:layout_width="match_parent"

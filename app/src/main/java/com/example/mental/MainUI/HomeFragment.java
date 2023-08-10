@@ -95,13 +95,16 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         functionModules.add(new FunctionModule(R.drawable.icon_function_analyze, "心情解析"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_read, "心理探索"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_game, "心境迷航"));
+
         // 3.子功能模块:初始化功能模块 RecyclerView
         RecyclerView functionRecyclerView = view.findViewById(R.id.functionRecyclerView);
-        LinearLayoutManager layoutManager_light = new GridLayoutManager(requireContext(), 2);
-        functionRecyclerView.setLayoutManager(layoutManager_light);
+        GridLayoutManager functionLayoutManager = new GridLayoutManager(requireContext(), 2);
+        functionRecyclerView.setLayoutManager(functionLayoutManager);
+
         // 将点击监听器传递给 FunctionAdapter
         FunctionAdapter functionModuleAdapter = new FunctionAdapter(functionModules, this);
         functionRecyclerView.setAdapter(functionModuleAdapter);
+
 
         // 4.活动栏模块:初始化
         // 初始化活动数据列表

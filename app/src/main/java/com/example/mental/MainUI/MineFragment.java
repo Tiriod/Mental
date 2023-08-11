@@ -1,66 +1,62 @@
 package com.example.mental.MainUI;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mental.Adapter.UserCardAdapter;
+import com.example.mental.Adapter.UserModeAdapter;
+import com.example.mental.Definition.UserCardItem;
+import com.example.mental.Definition.UserModeItem;
 import com.example.mental.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MineFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class MineFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public MineFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MineFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MineFragment newInstance(String param1, String param2) {
-        MineFragment fragment = new MineFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private RecyclerView mineUserCardRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+
+        // 初始化RecyclerView
+        mineUserCardRecyclerView = view.findViewById(R.id.mineUserCard);
+        LinearLayoutManager userCardLayoutManager = new LinearLayoutManager(getContext());
+        mineUserCardRecyclerView.setLayoutManager(userCardLayoutManager);
+        // 创建用户卡片数据列表
+        List<UserCardItem> userCardItems = new ArrayList<>();
+        userCardItems.add(new UserCardItem(R.drawable.image_activity_1, "用户名1", "用户ID1"));
+        // ... 添加更多用户卡片数据项
+        // 初始化适配器并设置
+        UserCardAdapter userCardAdapter = new UserCardAdapter(userCardItems, getContext());
+        mineUserCardRecyclerView.setAdapter(userCardAdapter);
+
+
+        // 创建用户功能模式数据列表
+        List<UserModeItem> userModeItems = new ArrayList<>();
+        userModeItems.add(new UserModeItem(R.drawable.icon_emotion_happy, "个人"));
+        userModeItems.add(new UserModeItem(R.drawable.icon_emotion_happy, "信息"));
+        userModeItems.add(new UserModeItem(R.drawable.icon_emotion_happy, "位置"));
+
+        // 初始化用户功能模式的 RecyclerView
+        RecyclerView userModeRecyclerView = view.findViewById(R.id.mineUserMode);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        userModeRecyclerView.setLayoutManager(layoutManager);
+
+        // 初始化用户功能模式的适配器并设置
+        UserModeAdapter userModeAdapter = new UserModeAdapter(userModeItems, getContext());
+        userModeRecyclerView.setAdapter(userModeAdapter);
+
+
+        return view;
     }
 }

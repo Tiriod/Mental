@@ -1,10 +1,10 @@
 package com.example.mental.FunctionUI;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.example.mental.Adapter.HeaderAdapter;
 import com.example.mental.R;
@@ -22,5 +22,6 @@ public class AnalyzeActivity extends AppCompatActivity {
         String headerText = "心情解析";
         HeaderAdapter headerAdapter = new HeaderAdapter(this, headerText);
         headerRecyclerView.setAdapter(headerAdapter);
+
     }
 }

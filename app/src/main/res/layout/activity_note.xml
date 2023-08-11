@@ -31,8 +31,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:letterSpacing="0.5"
                     android:text="今天心情怎么样?"
                     android:textColor="@color/black"
@@ -43,7 +43,7 @@
                     android:id="@+id/emotionCalendarText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:letterSpacing="0.5"
                     android:text="2023年8月10日"
@@ -59,7 +59,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:letterSpacing="0.5"
                     android:text="在做什么呢?"
@@ -78,17 +77,20 @@
                     android:layout_width="200dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/shape_cardview"
                     android:gravity="center"
-                    android:text="保存提交"
                     android:letterSpacing="0.2"
-                    android:textColor="@color/light_green"
+                    android:text="保存提交"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/EmotionCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"/>
     </LinearLayout>
 </RelativeLayout>

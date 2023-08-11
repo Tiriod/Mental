@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 import com.example.mental.Adapter.ActionAdapter;
 import com.example.mental.Adapter.EmotionAdapter;
+import com.example.mental.Adapter.EmotionCardAdapter;
 import com.example.mental.Adapter.HeaderAdapter;
+import com.example.mental.Definition.ActionCardItem;
 import com.example.mental.Definition.ActionItem;
+import com.example.mental.Definition.EmotionCardItem;
 import com.example.mental.Definition.EmotionItem;
 import com.example.mental.R;
 
@@ -78,5 +81,32 @@ public class NoteActivity extends AppCompatActivity {
         // 初始化活动项的适配器并设置
         ActionAdapter actionAdapter = new ActionAdapter(actionItems, this);
         actionRecyclerView.setAdapter(actionAdapter);
+
+
+        // 创建虚拟情绪卡片数据
+        List<EmotionCardItem> emotionCardItems = new ArrayList<>();
+
+        List<ActionCardItem> actionList1 = new ArrayList<>();
+        actionList1.add(new ActionCardItem(R.drawable.icon_action_work, "工作"));
+        actionList1.add(new ActionCardItem(R.drawable.icon_action_work, "学习"));
+        actionList1.add(new ActionCardItem(R.drawable.icon_action_work, "运动"));
+        EmotionCardItem emotionCard1 = new EmotionCardItem("2023年8月", R.drawable.icon_emotion_happy, "开心", actionList1);
+        emotionCardItems.add(emotionCard1); // 添加到情绪卡片列表
+
+        List<ActionCardItem> actionList2 = new ArrayList<>();
+        actionList2.add(new ActionCardItem(R.drawable.icon_action_work, "休息"));
+        actionList2.add(new ActionCardItem(R.drawable.icon_action_work, "阅读"));
+        actionList2.add(new ActionCardItem(R.drawable.icon_action_work, "聊天"));
+        EmotionCardItem emotionCard2 = new EmotionCardItem("2023年8月", R.drawable.icon_emotion_terrible, "难过", actionList2);
+        emotionCardItems.add(emotionCard2); // 添加到情绪卡片列表
+
+// 初始化 EmotionCardView 的 RecyclerView
+        RecyclerView emotionCardRecyclerView = findViewById(R.id.EmotionCardView);
+        LinearLayoutManager emotionCardLayoutManager = new LinearLayoutManager(this);
+        emotionCardRecyclerView.setLayoutManager(emotionCardLayoutManager);
+
+// 初始化情绪卡片适配器并设置
+        EmotionCardAdapter emotionCardAdapter = new EmotionCardAdapter(emotionCardItems, this);
+        emotionCardRecyclerView.setAdapter(emotionCardAdapter);
     }
 }

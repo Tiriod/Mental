@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--item_emotioncard.xml-->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_banner"
+    android:clipToPadding="false"
+    android:orientation="horizontal"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#8000AA66">
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_calendarball"/>
+            <TextView
+                android:id="@+id/emotionCardCalendarText"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="60dp"
+                android:gravity="center"
+                android:letterSpacing="0.5"
+                android:text="2023年8月10日"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/emotionCardImage"/>
+
+            <TextView
+                android:id="@+id/emotionCardText"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="60dp"
+                android:gravity="center"
+                android:letterSpacing="0.5"
+                android:text="狂喜"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/emotionCardActionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"/>
+        </FrameLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

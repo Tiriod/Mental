@@ -1,16 +1,19 @@
 package com.example.mental.MainUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mental.Adapter.ShareLoopAdapter;
 import com.example.mental.Definition.ShareLoopItem;
+import com.example.mental.FunctionUI.ShareLoopEditActivity;
 import com.example.mental.R;
 
 import java.util.ArrayList;
@@ -25,9 +28,9 @@ public class ShareLoopFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // 初始化布局
-        View rootView = inflater.inflate(R.layout.fragment_shareloop, container, false);
+        View view = inflater.inflate(R.layout.fragment_shareloop, container, false);
         // 初始化 RecyclerView
-        recyclerView = rootView.findViewById(R.id.shareLoop_recycler_card);
+        recyclerView = view.findViewById(R.id.shareLoop_recycler_card);
         // 初始化数据
         shareLoopItems = new ArrayList<>();
         // 添加示例 ShareLoopItem 数据到 shareLoopItems 列表
@@ -43,9 +46,21 @@ public class ShareLoopFragment extends Fragment {
         // 设置适配器
         recyclerView.setAdapter(shareLoopAdapter);
 
+// 在 onCreateView 方法中找到 shareLoop_compile
+        CardView compileCardView = view.findViewById(R.id.shareLoop_compile);
+
+// 为 compileCardView 设置点击事件监听器
+        compileCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 在点击事件中执行跳转操作
+                Intent intent = new Intent(getActivity(), ShareLoopEditActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         // 返回根视图
-        return rootView;
+        return view;
     }
 }

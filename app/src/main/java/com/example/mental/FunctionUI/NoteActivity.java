@@ -1,13 +1,12 @@
 package com.example.mental.FunctionUI;
 
+import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.util.JsonReader;
-import android.widget.TextView;
 
 import com.example.mental.Adapter.ActionAdapter;
 import com.example.mental.Adapter.EmotionAdapter;
@@ -78,6 +77,7 @@ public class NoteActivity extends AppCompatActivity {
         int spanCount = 5; // 一行显示的最大列数
         GridLayoutManager actionLayoutManager = new GridLayoutManager(this, spanCount);
         actionRecyclerView.setLayoutManager(actionLayoutManager);
+
         // 初始化活动项的适配器并设置
         ActionAdapter actionAdapter = new ActionAdapter(actionItems, this);
         actionRecyclerView.setAdapter(actionAdapter);

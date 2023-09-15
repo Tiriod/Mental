@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,12 +19,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mental.Adapter.HeaderAdapter;
 import com.example.mental.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MeditationAudioActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private Button playButton;
     private boolean isPlaying = false;
     private ImageView audioImageView;
     private boolean shouldRotate = false;
+    private SeekBar seekBar; // 新增SeekBar
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,46 @@ public class MeditationAudioActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // 音频进度条
+        // 找到SeekBar视图
+        seekBar = findViewById(R.id.meditationAudio_seekBar);
+
+        // 设置SeekBar的最大值（音频总时长）
+        seekBar.setMax(mediaPlayer.getDuration());
+
+        // 设置SeekBar的拖动事件监听器
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    // 用户手动拖动SeekBar，设置音频播放位置
+                    mediaPlayer.seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // 用户开始拖动SeekBar时的回调（可以暂停计时器等）
+                // 在这里添加你的逻辑
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // 用户停止拖动SeekBar时的回调（可以恢复计时器等）
+                // 在这里添加你的逻辑
+            }
+        });
+// 初始化计时器，定期更新SeekBar的进度
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (mediaPlayer != null && isPlaying) {
+                    seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                }
+            }
+        }, 0, 1000); // 每秒更新一次SeekBar
     }
 
     private void playAudio() {
@@ -109,6 +155,10 @@ public class MeditationAudioActivity extends AppCompatActivity {
         if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
+        }
+        // 取消计时器
+        if (timer != null) {
+            timer.cancel();
         }
     }
 }

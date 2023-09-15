@@ -70,6 +70,15 @@
 
 
         </LinearLayout>
+        <!-- 在LinearLayout中添加SeekBar -->
+        <SeekBar
+            android:id="@+id/meditationAudio_seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:thumb="@drawable/icon_emotion_happy"
+            android:progress="0" />
+
 
         <LinearLayout
             android:layout_width="match_parent"

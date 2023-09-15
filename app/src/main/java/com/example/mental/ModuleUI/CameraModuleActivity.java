@@ -287,5 +287,3 @@ public class CameraModuleActivity extends AppCompatActivity {
         }
     }
 }
-
-

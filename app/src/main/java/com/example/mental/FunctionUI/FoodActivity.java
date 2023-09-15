@@ -94,6 +94,8 @@ public class FoodActivity extends AppCompatActivity {
         List<FoodItem> lunchItems = new ArrayList<>();
         lunchItems.add(new FoodItem(R.drawable.image_rice,"食物1", "150g", "300卡路里"));
         lunchItems.add(new FoodItem(R.drawable.image_rice,"食物1", "150g", "300卡路里"));
+        lunchItems.add(new FoodItem(R.drawable.image_rice,"食物1", "150g", "300卡路里"));
+        lunchItems.add(new FoodItem(R.drawable.image_rice,"食物1", "150g", "300卡路里"));
         // ...
         FoodAdapter lunchAdapter = new FoodAdapter(lunchItems);
         lunchRecyclerView.setAdapter(lunchAdapter);
@@ -104,6 +106,8 @@ public class FoodActivity extends AppCompatActivity {
         dinnerRecyclerView.setLayoutManager(dinnerLayoutManager);
         // 初始化晚餐食物数据，例如：
         List<FoodItem> dinnerItems = new ArrayList<>();
+        dinnerItems.add(new FoodItem(R.drawable.image_rice,"食物1", "150g", "300卡路里"));
+        dinnerItems.add(new FoodItem(R.drawable.image_rice,"食物1", "150g", "300卡路里"));
         dinnerItems.add(new FoodItem(R.drawable.image_rice,"食物1", "150g", "300卡路里"));
         // ...
         FoodAdapter dinnerAdapter = new FoodAdapter(dinnerItems);

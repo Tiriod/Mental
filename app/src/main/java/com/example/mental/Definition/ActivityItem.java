@@ -2,16 +2,28 @@ package com.example.mental.Definition;
 
 public class ActivityItem {
     private int imageResId;
-    // 可以根据需要添加其他活动相关信息，比如活动标题、描述等
+    private String activityName;
+    private String activityIntroduce;
 
-    public ActivityItem(int imageResId) {
+    public ActivityItem(int imageResId, String activityName, String activityIntroduce) {
         this.imageResId = imageResId;
+        this.activityName = activityName;
+        this.activityIntroduce = activityIntroduce;
     }
 
     public int getImageResId() {
         return imageResId;
     }
+
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public String getActivityIntroduce() {
+        return activityIntroduce;
+    }
 }
+
 
 
 

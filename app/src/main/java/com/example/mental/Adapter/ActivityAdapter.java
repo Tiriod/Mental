@@ -1,6 +1,6 @@
 package com.example.mental.Adapter;
 
-import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.mental.Definition.ActivityItem;
 import com.example.mental.R;
 
@@ -32,8 +31,17 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
 
     @Override
     public void onBindViewHolder(@NonNull ActivityViewHolder holder, int position) {
-        ActivityItem item = activityList.get(position);
-        holder.activityImageView.setImageResource(item.getImageResId());
+        ActivityItem activityItem = activityList.get(position);
+        holder.activityImageView.setImageResource(activityItem.getImageResId());
+        holder.activityNameTextView.setText(activityItem.getActivityName());
+        holder.activityIntroduceTextView.setText(activityItem.getActivityIntroduce());
+
+        // 添加以下日志来检查数据
+        Log.d("ActivityAdapter", "Position: " + position);
+        Log.d("ActivityAdapter", "Activity Name: " + activityItem.getActivityName());
+        Log.d("ActivityAdapter", "Activity Introduce: " + activityItem.getActivityIntroduce());
+        Log.d("ActivityAdapter", "Activity List Size: " + activityList.size());
+
     }
 
     @Override
@@ -43,13 +51,14 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
 
     static class ActivityViewHolder extends RecyclerView.ViewHolder {
         ImageView activityImageView;
+        TextView activityNameTextView;
+        TextView activityIntroduceTextView;
 
         public ActivityViewHolder(@NonNull View itemView) {
             super(itemView);
-            activityImageView = itemView.findViewById(R.id.activityImageView);
+            activityImageView = itemView.findViewById(R.id.card_activity_image);
+            activityNameTextView = itemView.findViewById(R.id.card_activity_name);
+            activityIntroduceTextView = itemView.findViewById(R.id.card_activity_introduce);
         }
     }
 }
-
-
-

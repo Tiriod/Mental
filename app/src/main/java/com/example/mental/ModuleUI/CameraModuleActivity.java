@@ -48,13 +48,13 @@ public class CameraModuleActivity extends AppCompatActivity {
 
     private TextView resultTextView;
 
-    private Handler imgHandler = new Handler(){
+    private Handler imgHandler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
             int what = msg.what;
-            switch (what){
+            switch (what) {
                 case 0:
-                    resultTextView.setText("检测到的表情："+msg.obj);
+                    resultTextView.setText("检测到的表情：" + msg.obj);
                     break;
                 case 1:
                     resultTextView.setText("未检测到人脸！");
@@ -79,14 +79,14 @@ public class CameraModuleActivity extends AppCompatActivity {
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                            System.out.println("拍照失败："+e.getMessage());
+                            System.out.println("拍照失败：" + e.getMessage());
                         }
 
                         @Override
                         public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                             String result = response.body().string();
-                            System.out.println("返回的结果："+ result);
-                            if("no face".equals(result)){
+                            System.out.println("返回的结果：" + result);
+                            if ("no face".equals(result)) {
                                 imgHandler.sendEmptyMessage(0x1);
                                 return;
                             }
@@ -97,7 +97,7 @@ public class CameraModuleActivity extends AppCompatActivity {
 
                 }
             });
-            imgHandler.postDelayed(screenshotRunnable,3000);
+            imgHandler.postDelayed(screenshotRunnable, 3000);
         }
     };
 
@@ -181,7 +181,7 @@ public class CameraModuleActivity extends AppCompatActivity {
             camera.setFaceDetectionListener(new Camera.FaceDetectionListener() {
                 @Override
                 public void onFaceDetection(Camera.Face[] faces, Camera camera) {
-                    System.out.println("识别到人脸："+faces.length);
+                    System.out.println("识别到人脸：" + faces.length);
 //                    if (faces.length > 0){
 //                    }
                 }
@@ -287,5 +287,3 @@ public class CameraModuleActivity extends AppCompatActivity {
         }
     }
 }
-
-

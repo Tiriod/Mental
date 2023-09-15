@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Base64;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,6 +28,14 @@ import com.example.mental.R;
 import java.io.IOException;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class CameraModuleActivity extends AppCompatActivity {
     // 相机显示区域
     private SurfaceView cameraSurfaceView;
@@ -33,6 +44,62 @@ public class CameraModuleActivity extends AppCompatActivity {
     private boolean isCameraOpen = false;
     // 关闭/打开相机按钮
     private Button btnCloseCamera;
+    private Button btnReverseCamera;
+
+    private TextView resultTextView;
+
+    private Handler imgHandler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            int what = msg.what;
+            switch (what){
+                case 0:
+                    resultTextView.setText("检测到的表情："+msg.obj);
+                    break;
+                case 1:
+                    resultTextView.setText("未检测到人脸！");
+                    break;
+            }
+        }
+    };
+
+    private OkHttpClient client = new OkHttpClient();
+
+    private Runnable screenshotRunnable = new Runnable() {
+        @Override
+        public void run() {
+            camera.takePicture(null, null, new Camera.PictureCallback() {
+                @Override
+                public void onPictureTaken(byte[] data, Camera camera) {
+//                    camera.startFaceDetection();
+                    camera.startPreview();
+                    String imageData = Base64.encodeToString(data, Base64.DEFAULT);
+                    RequestBody body = RequestBody.create(MediaType.parse("text/plain"), imageData);
+                    Request request = new Request.Builder().url("http://192.168.1.106:5001/emoji").post(body).build();
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                            System.out.println("拍照失败："+e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                            String result = response.body().string();
+                            System.out.println("返回的结果："+ result);
+                            if("no face".equals(result)){
+                                imgHandler.sendEmptyMessage(0x1);
+                                return;
+                            }
+                            Message message = imgHandler.obtainMessage(0x0, result);
+                            imgHandler.sendMessage(message);
+                        }
+                    });
+
+                }
+            });
+            imgHandler.postDelayed(screenshotRunnable,3000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +117,9 @@ public class CameraModuleActivity extends AppCompatActivity {
         // 初始化界面组件声明
         cameraSurfaceView = findViewById(R.id.cameraSurfaceView);
         // 结果文本绘制
-        TextView resultTextView = findViewById(R.id.resultTextView);
+        resultTextView = findViewById(R.id.resultTextView);
         btnCloseCamera = findViewById(R.id.btnCloseCamera);
-
+        btnReverseCamera = findViewById(R.id.btnReverseCamera);
         // 请求相机权限
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             // 如果没有相机权限，则请求权限
@@ -62,6 +129,17 @@ public class CameraModuleActivity extends AppCompatActivity {
             openCamera();
             isCameraOpen = true;
         }
+
+        // 翻转相机按钮
+        btnReverseCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCameraOpen) {
+                    //相机打开的情况下才能翻转
+
+                }
+            }
+        });
 
         // 设置关闭/打开相机按钮的点击事件监听器
         btnCloseCamera.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +165,7 @@ public class CameraModuleActivity extends AppCompatActivity {
         });
 
         // 设置默认的示例文本
-        resultTextView.setText("检测到的表情：开心");
+        resultTextView.setText("");
     }
 
     // 打开相机方法
@@ -100,6 +178,14 @@ public class CameraModuleActivity extends AppCompatActivity {
         try {
             camera = Camera.open();
             camera.setDisplayOrientation(90);
+            camera.setFaceDetectionListener(new Camera.FaceDetectionListener() {
+                @Override
+                public void onFaceDetection(Camera.Face[] faces, Camera camera) {
+                    System.out.println("识别到人脸："+faces.length);
+//                    if (faces.length > 0){
+//                    }
+                }
+            });
             Camera.Parameters parameters = camera.getParameters();
             // 设置自动对焦模式
             List<String> supportedFocusModes = parameters.getSupportedFocusModes();
@@ -115,6 +201,7 @@ public class CameraModuleActivity extends AppCompatActivity {
                 public void surfaceCreated(SurfaceHolder holder) {
                     try {
                         camera.setPreviewDisplay(holder);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(CameraModuleActivity.this, "设置预览失败", Toast.LENGTH_SHORT).show();
@@ -129,7 +216,10 @@ public class CameraModuleActivity extends AppCompatActivity {
                     }
 
                     // 启动预览
+//                    camera.startFaceDetection();
                     camera.startPreview();
+                    imgHandler.post(screenshotRunnable);
+
                 }
 
                 @Override
@@ -139,6 +229,8 @@ public class CameraModuleActivity extends AppCompatActivity {
                         camera.stopPreview();
                         camera.release();
                         camera = null;
+                        imgHandler.removeCallbacks(screenshotRunnable);
+
                     }
                 }
             });

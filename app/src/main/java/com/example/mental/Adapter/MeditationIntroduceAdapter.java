@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mental.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MeditationIntroduceAdapter extends RecyclerView.Adapter<MeditationIntroduceAdapter.MeditationClassIntroduceViewHolder> {
@@ -69,5 +68,15 @@ public class MeditationIntroduceAdapter extends RecyclerView.Adapter<MeditationI
         }
 
     }
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
 
 }

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class AudioCardAdapter extends RecyclerView.Adapter<AudioCardAdapter.AudioCardViewHolder> {
 
-    private List<AudioCardItem> audioCardItems;
+    private static List<AudioCardItem> audioCardItems;
     private Context context;
 
     public AudioCardAdapter(List<AudioCardItem> audioCardItems, Context context) {
@@ -70,8 +70,17 @@ public class AudioCardAdapter extends RecyclerView.Adapter<AudioCardAdapter.Audi
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(context, MeditationAudioActivity.class);
-            context.startActivity(intent);
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                AudioCardItem audioCardItem = audioCardItems.get(position);
+
+                Intent intent = new Intent(context, MeditationAudioActivity.class);
+                intent.putExtra("audioName", audioCardItem.getAudioName());
+                intent.putExtra("playCount", audioCardItem.getPlayCount());
+                intent.putExtra("audioImage", audioCardItem.getAudioImage());
+
+                context.startActivity(intent);
+            }
         }
     }
 }

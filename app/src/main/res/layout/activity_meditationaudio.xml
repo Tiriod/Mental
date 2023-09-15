@@ -3,24 +3,89 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/MeditationAudio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp">
-        <Button
-            android:id="@+id/meditation_begin_audio"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
+        android:layout_marginTop="70dp"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:text="播放"/>
+            app:cardCornerRadius="100dp">
+
+            <ImageView
+                android:id="@+id/meditationAudio_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/image_test" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/meditationAudio_audioName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.5"
+                android:text="音频名称"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/icon_earphone"/>
+
+                <TextView
+                    android:id="@+id/meditationAudio_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="30dp"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="音频播放量:"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    android:textStyle="normal"/>
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/meditationAudio_begin"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="播放" />
+        </LinearLayout>
+        <!-- 添加头部标签的 RecyclerView -->
     </LinearLayout>
-    <!-- 添加头部标签的 RecyclerView -->
 
 
 </RelativeLayout>

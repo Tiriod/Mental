@@ -1,66 +1,66 @@
 package com.example.mental.MainUI;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mental.Adapter.ShareLoopAdapter;
+import com.example.mental.Definition.ShareLoopItem;
+import com.example.mental.FunctionUI.ShareLoopEditActivity;
 import com.example.mental.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ShareLoopFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShareLoopFragment extends Fragment {
+    private RecyclerView recyclerView;
+    private ShareLoopAdapter shareLoopAdapter;
+    private List<ShareLoopItem> shareLoopItems; // 你的数据列表
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ShareLoopFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ShareLoopFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ShareLoopFragment newInstance(String param1, String param2) {
-        ShareLoopFragment fragment = new ShareLoopFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // 初始化布局
+        View view = inflater.inflate(R.layout.fragment_shareloop, container, false);
+        // 初始化 RecyclerView
+        recyclerView = view.findViewById(R.id.shareLoop_recycler_card);
+        // 初始化数据
+        shareLoopItems = new ArrayList<>();
+        // 添加示例 ShareLoopItem 数据到 shareLoopItems 列表
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_activity_1, "时间间", R.drawable.icon_emotion_happy, "文本内容", R.drawable.image_activity_1,"2023-09-14"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_activity_1, "时间间", R.drawable.icon_emotion_unknown, "文本内容", R.drawable.image_activity_1,"2023-09-14"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_activity_1, "时间间", R.drawable.icon_emotion_bad, "文本内容", R.drawable.image_activity_1,"2023-09-14"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_activity_1, "时间间", R.drawable.icon_emotion_ecstasy, "文本内容", R.drawable.image_activity_1,"2023-09-14"));
+        // 初始化适配器
+        shareLoopAdapter = new ShareLoopAdapter(getActivity(), shareLoopItems);
+        // 设置 RecyclerView 的布局管理器，你可以选择 LinearLayoutManager 或其他适当的布局管理器
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        // 设置适配器
+        recyclerView.setAdapter(shareLoopAdapter);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shareloop, container, false);
+// 在 onCreateView 方法中找到 shareLoop_compile
+        CardView compileCardView = view.findViewById(R.id.shareLoop_compile);
+
+// 为 compileCardView 设置点击事件监听器
+        compileCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 在点击事件中执行跳转操作
+                Intent intent = new Intent(getActivity(), ShareLoopEditActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        // 返回根视图
+        return view;
     }
 }

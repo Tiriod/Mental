@@ -1,10 +1,10 @@
 package com.example.mental.FunctionUI;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.example.mental.Adapter.AudioCardAdapter;
 import com.example.mental.Adapter.HeaderAdapter;
@@ -62,6 +62,7 @@ public class MeditationActivity extends AppCompatActivity implements MeditationC
         // 添加更多冥想内容介绍数据
         meditationContents = new ArrayList<>();
         meditationContents.add("脑波冥想音频是通过特定频率和节奏的声音来激活大脑的不同频率，以帮助人们实现特定的冥想状态");
+
         // 初始化冥想内容介绍RecyclerView
         meditationIntroduceRecyclerView = findViewById(R.id.MeditationIntroduce);
         LinearLayoutManager meditationIntroduceLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -75,12 +76,11 @@ public class MeditationActivity extends AppCompatActivity implements MeditationC
 
         // 初始化音频卡片列表
         List<AudioCardItem> audioCardItems = new ArrayList<>();
-        audioCardItems.add(new AudioCardItem("音频1", 100));
-        audioCardItems.add(new AudioCardItem("音频2", 200));
-        audioCardItems.add(new AudioCardItem("音频3", 300));
-        audioCardItems.add(new AudioCardItem("音频3", 300));
-        audioCardItems.add(new AudioCardItem("音频3", 300));
-        audioCardItems.add(new AudioCardItem("音频3", 300));
+        audioCardItems.add(new AudioCardItem("Toxic", 114514, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
+        audioCardItems.add(new AudioCardItem("音频2", 413, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
+        audioCardItems.add(new AudioCardItem("音频3", 100, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
+        audioCardItems.add(new AudioCardItem("音频4", 4125, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
+        audioCardItems.add(new AudioCardItem("音频5", 51451345, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
 
         // 初始化音频卡片RecyclerView
         audioCardRecyclerView = findViewById(R.id.MeditationItem);

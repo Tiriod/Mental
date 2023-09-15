@@ -1,79 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white_background"
     tools:context=".MainUI.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 添加头部组件块，用来显示图片 -->
+        <ImageView
+            android:id="@+id/headerImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_home_title" />
 
-            <!-- 添加头部组件块，用来显示图片 -->
-            <ImageView
-                android:id="@+id/headerImageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_home_title" />
+        <!-- 子容器，横向滑动 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="#FCFCFC"
+            app:cardCornerRadius="5dp">
 
-            <!-- 子容器，横向滑动 -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                app:cardBackgroundColor="#FCFCFC"
-                app:cardCornerRadius="5dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/horizontalRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" />
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- 轮播图模块 -->
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/shape_banner"
-                android:clipToPadding="false" />
-            <!--功能栏模块-->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/functionRecyclerView"
+                android:id="@+id/horizontalRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:clipToPadding="false"
-                android:orientation="vertical" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/activityRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/white_background"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never" />
+                android:orientation="horizontal" />
 
+        </androidx.cardview.widget.CardView>
 
-            <!-- 其他内容在此处添加 -->
+        <!-- 轮播图模块 -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:clipToPadding="false" />
+        <!--功能栏模块-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/functionRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:clipToPadding="false"
+            android:orientation="vertical" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activityRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/white_background"
+            android:orientation="vertical"/>
 
-        </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

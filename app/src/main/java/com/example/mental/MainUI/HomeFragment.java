@@ -2,14 +2,12 @@ package com.example.mental.MainUI;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,7 +66,7 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         imageList.add(R.drawable.image_banner_1);
         imageList.add(R.drawable.image_banner_2);
         imageList.add(R.drawable.image_banner_3);
-        // 2.轮播图模块:ViewPager2
+        // 2.轮播图模块:
         viewPager = view.findViewById(R.id.viewPager);
         BannerAdapter bannerAdapter = new BannerAdapter(imageList);
         viewPager.setAdapter(bannerAdapter);
@@ -109,11 +107,14 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         // 4.活动栏模块:初始化
         // 初始化活动数据列表
         List<ActivityItem> activityList = new ArrayList<>();
-        activityList.add(new ActivityItem(R.drawable.image_activity_1));
+        activityList.add(new ActivityItem(R.drawable.image_activity_1,"2023心理月","心理月活动在下北泽114514号开展"));
+        activityList.add(new ActivityItem(R.drawable.image_activity_2,"2024心理月","心理月活动在下北泽114514号开展"));
+        activityList.add(new ActivityItem(R.drawable.image_activity_1,"2025心理月","心理月活动在下北泽114514号开展"));
+        activityList.add(new ActivityItem(R.drawable.image_activity_1,"2026心理月","心理月活动在下北泽114514号开展"));
 
         // 初始化活动栏 RecyclerView
         RecyclerView activityRecyclerView = view.findViewById(R.id.activityRecyclerView);
-        LinearLayoutManager activityLayoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager activityLayoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         activityRecyclerView.setLayoutManager(activityLayoutManager);
 
         ActivityAdapter activityAdapter = new ActivityAdapter(activityList);
@@ -139,7 +140,6 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 // "说一说"模块: 页面跳转
                 startActivity(new Intent(requireContext(), TalkModuleActivity.class));
                 break;
-            // Add more cases if needed for other modules
         }
     }
     @Override
@@ -170,7 +170,6 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 // "心境迷航"模块: 页面跳转
                 startActivity(new Intent(requireContext(), GameActivity.class));
                 break;
-            // Add more cases if needed for other function modules
         }
     }
 }

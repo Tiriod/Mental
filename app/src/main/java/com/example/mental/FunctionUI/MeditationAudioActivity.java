@@ -159,6 +159,8 @@ public class MeditationAudioActivity extends AppCompatActivity {
         // 取消计时器
         if (timer != null) {
             timer.cancel();
+            timer.purge(); // 清除计时器的任务队列
+            timer = null; // 清空计时器引用
         }
     }
 }

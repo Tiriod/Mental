@@ -44,6 +44,9 @@ public class AudioCardAdapter extends RecyclerView.Adapter<AudioCardAdapter.Audi
         // 设置音频卡片的图像
         int audioImageResId = audioCardItem.getAudioImage();
         holder.audioImageView.setImageResource(audioImageResId);
+
+        // 设置音频地址
+        holder.audioUrl = String.valueOf(audioCardItem.getAudioUrl());
     }
 
     @Override
@@ -57,6 +60,7 @@ public class AudioCardAdapter extends RecyclerView.Adapter<AudioCardAdapter.Audi
         TextView playCountTextView;
         ImageView audioImageView; // 添加 ImageView 成员变量
         Context context;
+        String audioUrl; // 添加音频地址成员变量
 
         AudioCardViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
@@ -78,9 +82,11 @@ public class AudioCardAdapter extends RecyclerView.Adapter<AudioCardAdapter.Audi
                 intent.putExtra("audioName", audioCardItem.getAudioName());
                 intent.putExtra("playCount", audioCardItem.getPlayCount());
                 intent.putExtra("audioImage", audioCardItem.getAudioImage());
+                intent.putExtra("audioUrl", audioCardItem.getAudioUrl()); // 传递音频地址
 
                 context.startActivity(intent);
             }
         }
     }
 }
+

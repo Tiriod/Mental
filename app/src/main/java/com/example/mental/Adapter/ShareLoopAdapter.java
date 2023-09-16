@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mental.Definition.ShareLoopItem;
@@ -38,7 +38,7 @@ public class ShareLoopAdapter extends RecyclerView.Adapter<ShareLoopAdapter.Shar
         ShareLoopItem item = shareLoopItems.get(position);
 
         // 设置用户头像
-        holder.userAvatarCardView.setCardBackgroundColor(item.getUserAvatarResId());
+        holder.userAvatarCardView.setImageResource(item.getUserAvatarResId());
 
         // 设置用户名
         holder.usernameTextView.setText(item.getUsername());
@@ -49,11 +49,18 @@ public class ShareLoopAdapter extends RecyclerView.Adapter<ShareLoopAdapter.Shar
         // 设置富文本内容
         holder.textContentTextView.setText(item.getText());
 
-        // 设置图片
-        holder.contentImageView.setImageResource(item.getImageResId());
-
         // 设置发布时间
         holder.releaseTimeTextView.setText(item.getReleaseTime());
+
+        // 设置多张图片
+        MultipleImageAdapter imageAdapter = new MultipleImageAdapter(context, item.getImageResIds());
+        holder.contentImageView.setAdapter(imageAdapter);
+
+        // 设置布局管理器
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        holder.contentImageView.setLayoutManager(layoutManager);
+
+
     }
 
     @Override
@@ -62,11 +69,11 @@ public class ShareLoopAdapter extends RecyclerView.Adapter<ShareLoopAdapter.Shar
     }
 
     public static class ShareLoopViewHolder extends RecyclerView.ViewHolder {
-        CardView userAvatarCardView;
+        ImageView userAvatarCardView;
         TextView usernameTextView;
         ImageView userEmotionImageView;
         TextView textContentTextView;
-        ImageView contentImageView;
+        RecyclerView contentImageView; // 这里是一个 RecyclerView 用于显示多张图片
         TextView releaseTimeTextView;
 
         public ShareLoopViewHolder(@NonNull View itemView) {
@@ -75,7 +82,7 @@ public class ShareLoopAdapter extends RecyclerView.Adapter<ShareLoopAdapter.Shar
             usernameTextView = itemView.findViewById(R.id.card_shareLoop_username);
             userEmotionImageView = itemView.findViewById(R.id.card_shareLoop_userEmotion);
             textContentTextView = itemView.findViewById(R.id.card_shareLoop_text);
-            contentImageView = itemView.findViewById(R.id.card_shareLoop_image);
+            contentImageView = itemView.findViewById(R.id.card_shareLoop_imageList);
             releaseTimeTextView = itemView.findViewById(R.id.card_shareLoop_releaseTime);
         }
     }

@@ -28,7 +28,7 @@ public class MeditationAudioActivity extends AppCompatActivity {
     private boolean isPlaying = false;
     private ImageView audioImageView;
     private boolean shouldRotate = false;
-    private SeekBar seekBar; // 新增SeekBar
+    private SeekBar seekBar;
     private Timer timer;
 
     @Override
@@ -49,6 +49,7 @@ public class MeditationAudioActivity extends AppCompatActivity {
         String audioName = intent.getStringExtra("audioName");
         int playCount = intent.getIntExtra("playCount", 0); // 0 是默认值
         int audioImage = intent.getIntExtra("audioImage", 0); // 0 是默认值
+        int audioUrl = intent.getIntExtra("audioUrl", 0); // 获取音频资源ID
 
         // 渲染数据
         TextView audioNameTextView = findViewById(R.id.meditationAudio_audioName);
@@ -62,7 +63,7 @@ public class MeditationAudioActivity extends AppCompatActivity {
 
         // 绑定音频播放按钮
         playButton = findViewById(R.id.meditationAudio_begin);
-        mediaPlayer = MediaPlayer.create(this, R.raw.toxic); // 替换为你的音频文件
+        mediaPlayer = MediaPlayer.create(this, audioUrl); // 替换为你的音频文件
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +105,7 @@ public class MeditationAudioActivity extends AppCompatActivity {
                 // 在这里添加你的逻辑
             }
         });
-// 初始化计时器，定期更新SeekBar的进度
+        // 初始化计时器，定期更新SeekBar的进度
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override

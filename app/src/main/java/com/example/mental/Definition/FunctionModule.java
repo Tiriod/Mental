@@ -1,8 +1,8 @@
 package com.example.mental.Definition;
 
 public class FunctionModule {
-    private int iconResId;
-    private String moduleName;
+    private final int iconResId;
+    private final String moduleName;
 
     public FunctionModule(int iconResId, String moduleName) {
         this.iconResId = iconResId;

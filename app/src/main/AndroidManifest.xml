@@ -29,7 +29,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityDetailsActivity"
+            android:name=".FunctionUI.ActivityDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".FunctionUI.ShareLoopEditActivity"

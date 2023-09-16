@@ -76,11 +76,9 @@ public class MeditationActivity extends AppCompatActivity implements MeditationC
 
         // 初始化音频卡片列表
         List<AudioCardItem> audioCardItems = new ArrayList<>();
-        audioCardItems.add(new AudioCardItem("Toxic", 114514, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
-        audioCardItems.add(new AudioCardItem("音频2", 413, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
-        audioCardItems.add(new AudioCardItem("音频3", 100, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
-        audioCardItems.add(new AudioCardItem("音频4", 4125, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
-        audioCardItems.add(new AudioCardItem("音频5", 51451345, R.drawable.image_activity_1)); // 替换 audioImage1 为实际的图像
+        audioCardItems.add(new AudioCardItem("Glad You Came", 413, R.drawable.image_activity_1, R.raw.gladyoucame));
+        audioCardItems.add(new AudioCardItem("Toxic", 114514, R.drawable.image_activity_1, R.raw.toxic));
+        audioCardItems.add(new AudioCardItem("My Stupid Heart", 114514, R.drawable.image_activity_1, R.raw.mystupidheart));
 
         // 初始化音频卡片RecyclerView
         audioCardRecyclerView = findViewById(R.id.MeditationItem);

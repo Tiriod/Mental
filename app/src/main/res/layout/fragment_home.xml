@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/image_home_title" />
+            android:src="@drawable/image_title" />
 
         <!-- 子容器，横向滑动 -->
         <androidx.cardview.widget.CardView
@@ -51,7 +51,7 @@
             android:id="@+id/functionRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:clipToPadding="false"
             android:orientation="vertical" />
 

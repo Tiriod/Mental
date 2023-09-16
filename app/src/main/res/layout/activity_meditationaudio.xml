@@ -43,7 +43,7 @@
                 android:letterSpacing="0.5"
                 android:text="音频名称"
                 android:textColor="@color/black"
-                android:textSize="32sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <FrameLayout

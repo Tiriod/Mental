@@ -20,6 +20,7 @@ import com.example.mental.Adapter.BannerAdapter;
 import com.example.mental.Adapter.FunctionAdapter;
 import com.example.mental.Adapter.ModuleAdapter;
 import com.example.mental.Definition.ActivityItem;
+import com.example.mental.Definition.BannerItem;
 import com.example.mental.Definition.FunctionModule;
 import com.example.mental.FunctionUI.AnalyzeActivity;
 import com.example.mental.FunctionUI.FoodActivity;
@@ -38,13 +39,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-
 public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClickListener, FunctionAdapter.OnFunctionClickListener {
     //
     private ViewPager2 viewPager;
     private List<Integer> imageList;
-    private OkHttpClient client = new OkHttpClient();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,29 +67,69 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         ModuleAdapter adapter = new ModuleAdapter(moduleNameList, moduleIntroduceList, this);
         horizontalRecyclerView.setAdapter(adapter);
 
+
         // 2.轮播图模块:初始化
         imageList = new ArrayList<>();
-        imageList.add(R.drawable.image_banner_1);
-        imageList.add(R.drawable.image_banner_2);
-        imageList.add(R.drawable.image_banner_3);
-        // 2.轮播图模块:
+        // 2.轮播图模块:初始化viewPager
         viewPager = view.findViewById(R.id.viewPager);
         BannerAdapter bannerAdapter = new BannerAdapter(imageList);
         viewPager.setAdapter(bannerAdapter);
-        // 2.轮播图模块:设置自动轮播
-        if (!imageList.isEmpty()) {
-            // 在轮播图图片数据不为空时执行
-            final Handler handler = new Handler();
-            final Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    int currentItem = viewPager.getCurrentItem();
-                    viewPager.setCurrentItem((currentItem + 1) % imageList.size(), true);
-                    handler.postDelayed(this, 5000);
+
+        // 轮播图内容请求地址代码
+        String bannerApiUrl = "http://your_api_endpoint_for_banners";
+        // 使用API请求轮播图栏信息内容
+        ApiRequest.makeApiRequest(bannerApiUrl, new ApiRequest.ApiResponseListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onSuccess(String response) {
+                // 处理成功的响应
+                Log.d("API请求内容", response);
+                Gson gson = new Gson();
+                BannerItem[] bannerItems = gson.fromJson(response, BannerItem[].class);
+
+                // 清空现有的 imageList
+                imageList.clear();
+
+                // 将解析后的数据添加到 imageList 中
+                for (BannerItem item : bannerItems) {
+                    // 假设你的 BannerItem 类有一个获取图片资源 ID 的方法，例如 getBannerImageResourceId()
+                    imageList.add(item.getBannerImageResourceId());
                 }
-            };
-            handler.postDelayed(runnable, 5000);
-        }
+
+                // 通知适配器数据已更改，以便更新视图
+                bannerAdapter.notifyDataSetChanged();
+                // 设置自动轮播
+                if (!imageList.isEmpty()) {
+                    final Handler handler = new Handler();
+                    final Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            int currentItem = viewPager.getCurrentItem();
+                            viewPager.setCurrentItem((currentItem + 1) % imageList.size(), true);
+                            handler.postDelayed(this, 5000);
+                        }
+                    };
+                    handler.postDelayed(runnable, 5000);
+                }
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onError(String error) {
+                // 处理错误的响应
+                Log.e("API请求内容", error);
+                // 在请求失败时，你可以使用默认图片或采取其他措施
+                // 清空现有的 imageList，使用默认图片
+                imageList.clear();
+                imageList.add(R.drawable.image_test_banner);
+                imageList.add(R.drawable.image_test_banner);
+                imageList.add(R.drawable.image_test_banner);
+                imageList.add(R.drawable.image_test_banner);
+                imageList.add(R.drawable.image_test_banner);
+                // 通知适配器数据已更改，以便更新视图
+                bannerAdapter.notifyDataSetChanged();
+            }
+        });
 
         // 3.子功能模块:初始化
         List<FunctionModule> functionModules = new ArrayList<>();
@@ -104,7 +142,6 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
 
         // 3.子功能模块:初始化
         RecyclerView functionRecyclerView = view.findViewById(R.id.functionRecyclerView);
-
         GridLayoutManager functionLayoutManager = new GridLayoutManager(requireContext(), 2);
         functionRecyclerView.setLayoutManager(functionLayoutManager);
         // 将点击监听器传递给 functionModuleAdapter
@@ -153,7 +190,7 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 // 在这里设置默认结果
                 ActivityItem[] defaultItems = {
                         new ActivityItem(R.drawable.image_test, "暂无活动信息", "暂无活动信息, 去看看其他的地方吧"),
-                        new ActivityItem(R.drawable.image_activity_1, "2024心理月", "心理月活动在下北泽114514号开展"),
+                        new ActivityItem(R.drawable.image_activity_1, "2024心理月", "心理月活动在下北泽114514号开展, 下北泽是野兽先辈的住所，是年轻人的圣地"),
                         new ActivityItem(R.drawable.image_activity_1, "2025心理月", "心理月活动在下北泽114514号开展"),
                 };
 
@@ -163,7 +200,6 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 activityAdapter.notifyDataSetChanged();
             }
         });
-
 
 
         // 最终结果页面渲染

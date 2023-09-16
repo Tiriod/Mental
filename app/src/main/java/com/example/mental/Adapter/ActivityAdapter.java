@@ -1,5 +1,6 @@
 package com.example.mental.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mental.Definition.ActivityItem;
+import com.example.mental.FunctionUI.ActivityDetailsActivity;
 import com.example.mental.R;
 
 import java.util.List;
@@ -35,7 +37,22 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         holder.activityNameTextView.setText(activityItem.getActivityName());
         holder.activityIntroduceTextView.setText(activityItem.getActivityIntroduce());
 
+        // 添加点击事件监听器
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 在点击时触发跳转到ActivityDetailsActivity
+                Intent intent = new Intent(view.getContext(), ActivityDetailsActivity.class);
+                // 将所需的数据放入Intent中
+                intent.putExtra("activityName", activityItem.getActivityName());
+                intent.putExtra("activityIntroduce", activityItem.getActivityIntroduce());
+                intent.putExtra("activityImage", activityItem.getImageResId()); // 传递图像资源ID
+                // 启动ActivityDetailsActivity
+                view.getContext().startActivity(intent);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {

@@ -1,6 +1,5 @@
 package com.example.mental.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +34,6 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         holder.activityImageView.setImageResource(activityItem.getImageResId());
         holder.activityNameTextView.setText(activityItem.getActivityName());
         holder.activityIntroduceTextView.setText(activityItem.getActivityIntroduce());
-
-        // 添加以下日志来检查数据
-        Log.d("ActivityAdapter", "Position: " + position);
-        Log.d("ActivityAdapter", "Activity Name: " + activityItem.getActivityName());
-        Log.d("ActivityAdapter", "Activity Introduce: " + activityItem.getActivityIntroduce());
-        Log.d("ActivityAdapter", "Activity List Size: " + activityList.size());
 
     }
 

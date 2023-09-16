@@ -1,8 +1,10 @@
 package com.example.mental.MainUI;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,14 +31,20 @@ import com.example.mental.ModuleUI.CameraModuleActivity;
 import com.example.mental.ModuleUI.TalkModuleActivity;
 import com.example.mental.ModuleUI.TestModuleActivity;
 import com.example.mental.R;
+import com.example.mental.Utils.ApiRequest;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClickListener, FunctionAdapter.OnFunctionClickListener {
     //
     private ViewPager2 viewPager;
     private List<Integer> imageList;
+    private OkHttpClient client = new OkHttpClient();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,38 +100,78 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         functionModules.add(new FunctionModule(R.drawable.icon_function_note, "心绪记录"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_analyze, "心情解析"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_read, "心理探索"));
-        functionModules.add(new FunctionModule(R.drawable.icon_function_game, "心境迷航"));
+        functionModules.add(new FunctionModule(R.drawable.icon_function_game, "逃出困境"));
 
-        // 3.子功能模块:初始化功能模块 RecyclerView
+        // 3.子功能模块:初始化
         RecyclerView functionRecyclerView = view.findViewById(R.id.functionRecyclerView);
+
         GridLayoutManager functionLayoutManager = new GridLayoutManager(requireContext(), 2);
         functionRecyclerView.setLayoutManager(functionLayoutManager);
-
-        // 将点击监听器传递给 FunctionAdapter
+        // 将点击监听器传递给 functionModuleAdapter
         FunctionAdapter functionModuleAdapter = new FunctionAdapter(functionModules, this);
         functionRecyclerView.setAdapter(functionModuleAdapter);
 
 
         // 4.活动栏模块:初始化
-        // 初始化活动数据列表
-        List<ActivityItem> activityList = new ArrayList<>();
-        activityList.add(new ActivityItem(R.drawable.image_activity_1,"2023心理月","心理月活动在下北泽114514号开展"));
-        activityList.add(new ActivityItem(R.drawable.image_activity_2,"2024心理月","心理月活动在下北泽114514号开展"));
-        activityList.add(new ActivityItem(R.drawable.image_activity_1,"2025心理月","心理月活动在下北泽114514号开展"));
-        activityList.add(new ActivityItem(R.drawable.image_activity_1,"2026心理月","心理月活动在下北泽114514号开展"));
-
-        // 初始化活动栏 RecyclerView
+        final List<ActivityItem>[] activityList = new List[]{new ArrayList<>()};
+        // 活动栏渲染视图初始化
         RecyclerView activityRecyclerView = view.findViewById(R.id.activityRecyclerView);
         LinearLayoutManager activityLayoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         activityRecyclerView.setLayoutManager(activityLayoutManager);
-
-        ActivityAdapter activityAdapter = new ActivityAdapter(activityList);
+        // 活动信息适配器初始化
+        ActivityAdapter activityAdapter = new ActivityAdapter(activityList[0]);
         activityRecyclerView.setAdapter(activityAdapter);
+        // 活动内容请求地址代码
+        String activityURL = "http://jsonplaceholder.typicode.com/post";
+        // 使用API请求活动栏信息内容
+        ApiRequest.makeApiRequest(activityURL, new ApiRequest.ApiResponseListener() {
+
+
+            // 活动API地址请求成功处理
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+
+            public void onSuccess(String response) {
+                // 处理成功的响应
+                Log.d("API请求内容", response);
+                Gson gson = new Gson();
+                ActivityItem[] items = gson.fromJson(response, ActivityItem[].class);
+                // 将解析后的数据添加到 activityList 中
+                activityList[0].addAll(Arrays.asList(items));
+                // 刷新适配器，以便在设置默认数据后更新视图
+                activityAdapter.notifyDataSetChanged();
+
+            }
+
+            // 活动API地址请求失败处理
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onError(String error) {
+                // 处理错误的响应
+                Log.e("API请求内容", error);
+
+                // 在这里设置默认结果
+                ActivityItem[] defaultItems = {
+                        new ActivityItem(R.drawable.image_test, "暂无活动信息", "暂无活动信息, 去看看其他的地方吧"),
+                        new ActivityItem(R.drawable.image_activity_1, "2024心理月", "心理月活动在下北泽114514号开展"),
+                        new ActivityItem(R.drawable.image_activity_1, "2025心理月", "心理月活动在下北泽114514号开展"),
+                };
+
+                // 将解析后的数据添加到 activityList 中
+                activityList[0].addAll(Arrays.asList(defaultItems));
+                // 刷新适配器，以便在设置默认数据后更新视图
+                activityAdapter.notifyDataSetChanged();
+            }
+        });
+
+
+
+        // 最终结果页面渲染
         return view;
     }
 
 
-    // 1.主题模块:点击跳转页面事件
+    // 点击跳转主题模块页面
     @Override
     public void onModuleClick(int position) {
         // 根据模块位置处理点击事件
@@ -142,6 +190,8 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 break;
         }
     }
+
+    // 点击跳转功能模块页面
     @Override
     public void onFunctionClick(int position) {
         // 根据子功能模块位置处理点击事件
@@ -167,9 +217,10 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 startActivity(new Intent(requireContext(), ReadActivity.class));
                 break;
             case 5:
-                // "心境迷航"模块: 页面跳转
+                // "逃出困境"模块: 页面跳转
                 startActivity(new Intent(requireContext(), GameActivity.class));
                 break;
         }
     }
+
 }

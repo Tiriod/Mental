@@ -2,12 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <SurfaceView
-        android:id="@+id/mazeSurfaceView"
+    <WebView
+        android:id="@+id/game_escape"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"/>
+        android:layout_height="match_parent"/>
 
     <!-- 添加头部标签的 RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
@@ -15,11 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="您可以通过点触屏幕四周来达到控制小球运动的效果"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
-    <ImageView
-        android:id="@+id/ballImageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/icon_plane" />
 </RelativeLayout>

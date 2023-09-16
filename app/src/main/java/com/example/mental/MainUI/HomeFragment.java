@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClickListener, FunctionAdapter.OnFunctionClickListener {
-    //
+
     private ViewPager2 viewPager;
     private List<Integer> imageList;
 
@@ -48,57 +48,52 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // RecyclerView 注册
+        initHorizontalRecyclerView(view);
+        initBanner(view);
+        initFunctionModules(view);
+        initActivityList(view);
+        return view;
+    }
+
+    private void initHorizontalRecyclerView(View view) {
         RecyclerView horizontalRecyclerView = view.findViewById(R.id.horizontalRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         horizontalRecyclerView.setLayoutManager(layoutManager);
 
-        // 1.主题模块:初始化
-        List<String> moduleNameList = new ArrayList<>();
-        List<String> moduleIntroduceList = new ArrayList<>();
-        // 1.主题模块:添加功能名称
-        moduleNameList.add("测一测");
-        moduleNameList.add("照一照");
-        moduleNameList.add("说一说");
-        // 1.主题模块:添加功能介绍
-        moduleIntroduceList.add("简单问题测出你的心理状态");
-        moduleIntroduceList.add("通过你的面部微表情看看你的心情");
-        moduleIntroduceList.add("通过你的语言语气来识别情绪");
+        List<String> moduleNameList = Arrays.asList("测一测", "照一照", "说一说");
+        List<String> moduleIntroduceList = Arrays.asList(
+                "简单问题测出你的心理状态",
+                "通过你的面部微表情看看你的心情",
+                "通过你的语言语气来识别情绪"
+        );
+
         ModuleAdapter adapter = new ModuleAdapter(moduleNameList, moduleIntroduceList, this);
         horizontalRecyclerView.setAdapter(adapter);
+    }
 
-
-        // 2.轮播图模块:初始化
+    private void initBanner(View view) {
         imageList = new ArrayList<>();
-        // 2.轮播图模块:初始化viewPager
         viewPager = view.findViewById(R.id.viewPager);
         BannerAdapter bannerAdapter = new BannerAdapter(imageList);
         viewPager.setAdapter(bannerAdapter);
 
-        // 轮播图内容请求地址代码
         String bannerApiUrl = "http://your_api_endpoint_for_banners";
-        // 使用API请求轮播图栏信息内容
         ApiRequest.makeApiRequest(bannerApiUrl, new ApiRequest.ApiResponseListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onSuccess(String response) {
-                // 处理成功的响应
                 Log.d("API请求内容", response);
                 Gson gson = new Gson();
                 BannerItem[] bannerItems = gson.fromJson(response, BannerItem[].class);
 
-                // 清空现有的 imageList
                 imageList.clear();
 
-                // 将解析后的数据添加到 imageList 中
                 for (BannerItem item : bannerItems) {
-                    // 假设你的 BannerItem 类有一个获取图片资源 ID 的方法，例如 getBannerImageResourceId()
                     imageList.add(item.getBannerImageResourceId());
                 }
 
-                // 通知适配器数据已更改，以便更新视图
                 bannerAdapter.notifyDataSetChanged();
-                // 设置自动轮播
+
                 if (!imageList.isEmpty()) {
                     final Handler handler = new Handler();
                     final Runnable runnable = new Runnable() {
@@ -106,32 +101,44 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                         public void run() {
                             int currentItem = viewPager.getCurrentItem();
                             viewPager.setCurrentItem((currentItem + 1) % imageList.size(), true);
-                            handler.postDelayed(this, 5000);
+                            handler.postDelayed(this, 3000);
                         }
                     };
-                    handler.postDelayed(runnable, 5000);
+                    handler.postDelayed(runnable, 3000);
                 }
             }
 
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onError(String error) {
-                // 处理错误的响应
                 Log.e("API请求内容", error);
-                // 在请求失败时，你可以使用默认图片或采取其他措施
-                // 清空现有的 imageList，使用默认图片
+
                 imageList.clear();
                 imageList.add(R.drawable.image_test_banner);
                 imageList.add(R.drawable.image_test_banner);
                 imageList.add(R.drawable.image_test_banner);
                 imageList.add(R.drawable.image_test_banner);
                 imageList.add(R.drawable.image_test_banner);
-                // 通知适配器数据已更改，以便更新视图
+
                 bannerAdapter.notifyDataSetChanged();
+
+                if (!imageList.isEmpty()) {
+                    final Handler handler = new Handler();
+                    final Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            int currentItem = viewPager.getCurrentItem();
+                            viewPager.setCurrentItem((currentItem + 1) % imageList.size(), true);
+                            handler.postDelayed(this, 3000);
+                        }
+                    };
+                    handler.postDelayed(runnable, 3000);
+                }
             }
         });
+    }
 
-        // 3.子功能模块:初始化
+    private void initFunctionModules(View view) {
         List<FunctionModule> functionModules = new ArrayList<>();
         functionModules.add(new FunctionModule(R.drawable.icon_function_meditation, "心灵冥想"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_food, "心身滋养"));
@@ -140,123 +147,90 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         functionModules.add(new FunctionModule(R.drawable.icon_function_read, "心理探索"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_game, "逃出困境"));
 
-        // 3.子功能模块:初始化
         RecyclerView functionRecyclerView = view.findViewById(R.id.functionRecyclerView);
         GridLayoutManager functionLayoutManager = new GridLayoutManager(requireContext(), 2);
         functionRecyclerView.setLayoutManager(functionLayoutManager);
-        // 将点击监听器传递给 functionModuleAdapter
+
         FunctionAdapter functionModuleAdapter = new FunctionAdapter(functionModules, this);
         functionRecyclerView.setAdapter(functionModuleAdapter);
+    }
 
+    private void initActivityList(View view) {
+        final List<ActivityItem> activityList = new ArrayList<>();
 
-        // 4.活动栏模块:初始化
-        final List<ActivityItem>[] activityList = new List[]{new ArrayList<>()};
-        // 活动栏渲染视图初始化
         RecyclerView activityRecyclerView = view.findViewById(R.id.activityRecyclerView);
         LinearLayoutManager activityLayoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         activityRecyclerView.setLayoutManager(activityLayoutManager);
-        // 活动信息适配器初始化
-        ActivityAdapter activityAdapter = new ActivityAdapter(activityList[0]);
+
+        ActivityAdapter activityAdapter = new ActivityAdapter(activityList);
         activityRecyclerView.setAdapter(activityAdapter);
-        // 活动内容请求地址代码
+
         String activityURL = "http://jsonplaceholder.typicode.com/post";
-        // 使用API请求活动栏信息内容
         ApiRequest.makeApiRequest(activityURL, new ApiRequest.ApiResponseListener() {
-
-
-            // 活动API地址请求成功处理
             @SuppressLint("NotifyDataSetChanged")
             @Override
-
             public void onSuccess(String response) {
-                // 处理成功的响应
                 Log.d("API请求内容", response);
                 Gson gson = new Gson();
                 ActivityItem[] items = gson.fromJson(response, ActivityItem[].class);
-                // 将解析后的数据添加到 activityList 中
-                activityList[0].addAll(Arrays.asList(items));
-                // 刷新适配器，以便在设置默认数据后更新视图
-                activityAdapter.notifyDataSetChanged();
 
+                activityList.addAll(Arrays.asList(items));
+                activityAdapter.notifyDataSetChanged();
             }
 
-            // 活动API地址请求失败处理
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onError(String error) {
-                // 处理错误的响应
                 Log.e("API请求内容", error);
 
-                // 在这里设置默认结果
                 ActivityItem[] defaultItems = {
                         new ActivityItem(R.drawable.image_test, "暂无活动信息", "暂无活动信息, 去看看其他的地方吧"),
                         new ActivityItem(R.drawable.image_activity_1, "2024心理月", "心理月活动在下北泽114514号开展, 下北泽是野兽先辈的住所，是年轻人的圣地"),
                         new ActivityItem(R.drawable.image_activity_1, "2025心理月", "心理月活动在下北泽114514号开展"),
                 };
 
-                // 将解析后的数据添加到 activityList 中
-                activityList[0].addAll(Arrays.asList(defaultItems));
-                // 刷新适配器，以便在设置默认数据后更新视图
+                activityList.addAll(Arrays.asList(defaultItems));
                 activityAdapter.notifyDataSetChanged();
             }
         });
-
-
-        // 最终结果页面渲染
-        return view;
     }
 
-
-    // 点击跳转主题模块页面
     @Override
     public void onModuleClick(int position) {
-        // 根据模块位置处理点击事件
         switch (position) {
             case 0:
-                // "测一测"模块: 页面跳转
                 startActivity(new Intent(requireContext(), TestModuleActivity.class));
                 break;
             case 1:
-                // "照一照"模块: 页面跳转
                 startActivity(new Intent(requireContext(), CameraModuleActivity.class));
                 break;
             case 2:
-                // "说一说"模块: 页面跳转
                 startActivity(new Intent(requireContext(), TalkModuleActivity.class));
                 break;
         }
     }
 
-    // 点击跳转功能模块页面
     @Override
     public void onFunctionClick(int position) {
-        // 根据子功能模块位置处理点击事件
         switch (position) {
             case 0:
-                // "心灵冥想"模块: 页面跳转
                 startActivity(new Intent(requireContext(), MeditationActivity.class));
                 break;
             case 1:
-                // "心身滋养"模块: 页面跳转
                 startActivity(new Intent(requireContext(), FoodActivity.class));
                 break;
             case 2:
-                // "心绪记录"模块: 页面跳转
                 startActivity(new Intent(requireContext(), NoteActivity.class));
                 break;
             case 3:
-                // "心情解析"模块: 页面跳转
                 startActivity(new Intent(requireContext(), AnalyzeActivity.class));
                 break;
             case 4:
-                // "心理探究"模块: 页面跳转
                 startActivity(new Intent(requireContext(), ReadActivity.class));
                 break;
             case 5:
-                // "逃出困境"模块: 页面跳转
                 startActivity(new Intent(requireContext(), GameActivity.class));
                 break;
         }
     }
-
 }

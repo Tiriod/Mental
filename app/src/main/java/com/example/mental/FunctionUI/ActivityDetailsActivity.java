@@ -41,6 +41,5 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         activityNameTextView.setText(activityName);
         activityIntroduceTextView.setText(activityIntroduce);
         activityImageView.setImageResource(activityImage);
-
     }
 }

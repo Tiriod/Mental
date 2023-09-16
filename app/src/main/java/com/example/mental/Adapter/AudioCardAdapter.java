@@ -88,5 +88,10 @@ public class AudioCardAdapter extends RecyclerView.Adapter<AudioCardAdapter.Audi
             }
         }
     }
+    public void updateAudioCardItems(List<AudioCardItem> updatedAudioCardItems) {
+        this.audioCardItems = updatedAudioCardItems;
+        notifyDataSetChanged(); // 通知适配器数据已更改
+    }
+
 }
 

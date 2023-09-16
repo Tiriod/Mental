@@ -10,7 +10,6 @@
     <ImageView
         android:id="@+id/multiple_image_view"
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="fitXY"/>
+        android:layout_height="100dp"/>
 
 </androidx.cardview.widget.CardView>

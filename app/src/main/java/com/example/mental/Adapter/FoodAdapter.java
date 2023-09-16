@@ -58,5 +58,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             caloriesTextView = itemView.findViewById(R.id.caloriesTextView);
         }
     }
+
+    public void updateFoodItems(List<FoodItem> newFoodItems) {
+        // 清除原有数据
+        foodItems.clear();
+        // 添加新数据
+        foodItems.addAll(newFoodItems);
+        // 通知适配器数据已更改
+        notifyDataSetChanged();
+    }
 }
 

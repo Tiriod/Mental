@@ -10,7 +10,7 @@
     <WebView
         android:id="@+id/sceneView"
         android:layout_width="match_parent"
-        android:layout_height="588dp" />
+        android:layout_height="600dp" />
 
     <Button
         android:id="@+id/recode_btn"

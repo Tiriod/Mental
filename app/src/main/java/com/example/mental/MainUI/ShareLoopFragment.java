@@ -17,6 +17,7 @@ import com.example.mental.FunctionUI.ShareLoopEditActivity;
 import com.example.mental.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ShareLoopFragment extends Fragment {
@@ -34,10 +35,10 @@ public class ShareLoopFragment extends Fragment {
         // 初始化数据
         shareLoopItems = new ArrayList<>();
         // 添加示例 ShareLoopItem 数据到 shareLoopItems 列表
-        shareLoopItems.add(new ShareLoopItem(R.drawable.image_activity_1, "时间间", R.drawable.icon_emotion_happy, "文本内容", R.drawable.image_activity_1,"2023-09-14"));
-        shareLoopItems.add(new ShareLoopItem(R.drawable.image_activity_1, "时间间", R.drawable.icon_emotion_unknown, "文本内容", R.drawable.image_activity_1,"2023-09-14"));
-        shareLoopItems.add(new ShareLoopItem(R.drawable.image_activity_1, "时间间", R.drawable.icon_emotion_bad, "文本内容", R.drawable.image_activity_1,"2023-09-14"));
-        shareLoopItems.add(new ShareLoopItem(R.drawable.image_activity_1, "时间间", R.drawable.icon_emotion_ecstasy, "文本内容", R.drawable.image_activity_1,"2023-09-14"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_happy, "文本内容", Arrays.asList(R.drawable.image_test, R.drawable.image_test), "2023-09-14"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_unknown, "文本内容", Arrays.asList(R.drawable.image_test), "2023-09-14"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_bad, "文本内容", Arrays.asList(R.drawable.image_test, R.drawable.image_test, R.drawable.image_test), "2023-09-14"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_ecstasy, "文本内容", Arrays.asList(R.drawable.image_test, R.drawable.image_test, R.drawable.image_test, R.drawable.image_test), "2023-09-14"));
         // 初始化适配器
         shareLoopAdapter = new ShareLoopAdapter(getActivity(), shareLoopItems);
         // 设置 RecyclerView 的布局管理器，你可以选择 LinearLayoutManager 或其他适当的布局管理器

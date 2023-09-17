@@ -32,58 +32,75 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:letterSpacing="0.5"
+                    android:layout_marginTop="5dp"
+                    android:letterSpacing="0.2"
                     android:text="今天心情怎么样?"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/emotionCalendarText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center_horizontal"
                     android:letterSpacing="0.5"
                     android:text="2023年8月10日"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/emotionView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:layout_margin="5dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:letterSpacing="0.5"
+                    android:letterSpacing="0.2"
                     android:text="在做什么呢?"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/actionView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:layout_marginTop="5dp" />
 
-                <Button
-                    android:id="@+id/submitButton"
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/shape_cardview"
-                    android:gravity="center"
-                    android:letterSpacing="0.2"
-                    android:text="保存提交"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/cardview_light_background">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/button_note_makeSure"
+                        android:layout_width="120dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:clickable="true"
+                        app:cardBackgroundColor="@color/light_green"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:letterSpacing="1"
+                            android:text="确认"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+                </FrameLayout>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

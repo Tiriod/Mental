@@ -1,5 +1,6 @@
 package com.example.mental.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,8 @@ import com.example.mental.R;
 import java.util.List;
 
 public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionViewHolder> {
-    private List<ActionItem> actionItems;
-    private Context context;
+    private final List<ActionItem> actionItems;
+    private final Context context;
 
     public ActionAdapter(List<ActionItem> actionItems, Context context) {
         this.actionItems = actionItems;
@@ -63,6 +64,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             itemView.setOnClickListener(this);
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();

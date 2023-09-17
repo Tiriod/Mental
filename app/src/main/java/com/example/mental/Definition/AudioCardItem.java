@@ -4,12 +4,16 @@ public class AudioCardItem {
 
     private String audioName;
     private int playCount;
-    private int audioImage; // 新增的图片资源ID变量
+    private int audioImage;
 
-    public AudioCardItem(String audioName, int playCount, int audioImage) {
+
+    private int audioUrl; // 新增的音频地址变量
+
+    public AudioCardItem(String audioName, int playCount, int audioImage, int audioUrl) {
         this.audioName = audioName;
         this.playCount = playCount;
-        this.audioImage = audioImage; // 初始化图片资源ID
+        this.audioImage = audioImage;
+        this.audioUrl = audioUrl; // 初始化音频地址
     }
 
     public String getAudioName() {
@@ -34,5 +38,13 @@ public class AudioCardItem {
 
     public void setAudioImage(int audioImage) {
         this.audioImage = audioImage;
+    }
+
+    public int getAudioUrl() {
+        return audioUrl;
+    }
+
+    public void setAudioUrl(int audioUrl) {
+        this.audioUrl = audioUrl;
     }
 }

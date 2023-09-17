@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/emotionItemView"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/icon_emotion_happy"
         android:textColor="#3D3D3D" />
@@ -25,5 +25,5 @@
         android:gravity="center"
         android:text="开心"
         android:textColor="#3D3D3D"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 </RelativeLayout>

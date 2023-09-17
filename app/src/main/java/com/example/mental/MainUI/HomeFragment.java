@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -67,6 +68,10 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 "通过你的语言语气来识别情绪"
         );
 
+        // 添加 PagerSnapHelper
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(horizontalRecyclerView);
+
         ModuleAdapter adapter = new ModuleAdapter(moduleNameList, moduleIntroduceList, this);
         horizontalRecyclerView.setAdapter(adapter);
     }
@@ -114,11 +119,10 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 Log.e("API请求内容", error);
 
                 imageList.clear();
-                imageList.add(R.drawable.image_test_banner);
-                imageList.add(R.drawable.image_test_banner);
-                imageList.add(R.drawable.image_test_banner);
-                imageList.add(R.drawable.image_test_banner);
-                imageList.add(R.drawable.image_test_banner);
+                imageList.add(R.drawable.image_banner_i);
+                imageList.add(R.drawable.image_banner_ii);
+                imageList.add(R.drawable.image_banner_iii);
+                imageList.add(R.drawable.image_banner_iv);
 
                 bannerAdapter.notifyDataSetChanged();
 

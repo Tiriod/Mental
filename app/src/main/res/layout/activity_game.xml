@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_below="@id/GameHeaderRecyclerView"
         android:text="您可以通过点触屏幕四周来达到控制小球运动的效果"
         android:textSize="16sp"
         android:layout_gravity="center"

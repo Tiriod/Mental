@@ -12,18 +12,18 @@
     <!--资源显示组件-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp">
+        android:layout_height="match_parent"
+        android:layout_below="@id/MeditationHeaderRecyclerView">
         <!--冥想内容类别选择-->
+        <!--页面滚动视图-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/MeditationChoice"
             android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal" />
-        <!--页面滚动视图-->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <!--冥想内容显示窗口-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/MeditationItem"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal" />
             </LinearLayout>
         </ScrollView>

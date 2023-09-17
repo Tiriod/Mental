@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Popular" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- 透明状态栏 -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <!-- 如果需要透明导航栏也可以设置以下属性 -->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/light_green</item>
+        <item name="colorPrimaryVariant">@color/light_green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!--         <item name="android:windowTranslucentNavigation">true</item> -->
+    </style>
+
+</resources>

@@ -14,7 +14,7 @@
             android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/icon_action_work"
-            android:background="@drawable/shape_cardview"
+            android:background="@drawable/shape_card_view"
             android:textColor="#3D3D3D" />
 
         <TextView

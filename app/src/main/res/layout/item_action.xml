@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="10dp">
 
-
     <ImageView
         android:id="@+id/actionItemView"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_centerHorizontal="true"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/shape_card_view_light"
         android:src="@drawable/icon_action_work"
-        android:background="@drawable/shape_cardview"
         android:textColor="#3D3D3D" />
 
     <TextView
@@ -20,10 +19,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/actionItemView"
         android:layout_centerHorizontal="true"
-        android:letterSpacing="0.5"
-        android:textStyle="bold"
+        android:layout_margin="2dp"
         android:gravity="center"
+        android:letterSpacing="0.5"
         android:text="工作"
         android:textColor="#3D3D3D"
-        android:textSize="10sp" />
+        android:textSize="12sp"
+        android:textStyle="bold" />
 </RelativeLayout>

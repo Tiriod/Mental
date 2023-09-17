@@ -49,11 +49,11 @@ public class NoteActivity extends AppCompatActivity {
 
         // 创建情绪项列表
         List<EmotionItem> emotionItems = new ArrayList<>();
-        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_ecstasy, "狂喜", "#77CA40"));
-        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_happy, "开心", "#0EBF7B"));
-        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_unknown, "未知", "#1095C1"));
-        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_bad, "不爽", "#ED9A0C"));
-        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_terrible, "糟糕", "#CB4F4F"));
+        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_ecstasy, "狂喜", "#77CA40", false));
+        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_happy, "开心", "#0EBF7B", false));
+        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_unknown, "未知", "#1095C1", true));
+        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_bad, "不爽", "#ED9A0C", false));
+        emotionItems.add(new EmotionItem(R.drawable.icon_emotion_terrible, "糟糕", "#CB4F4F", false));
         // 初始化情绪记录的 RecyclerView
         RecyclerView emotionRecyclerView = findViewById(R.id.emotionView);
         GridLayoutManager emotionLayoutManager = new GridLayoutManager(this, emotionItems.size(), GridLayoutManager.VERTICAL, false);

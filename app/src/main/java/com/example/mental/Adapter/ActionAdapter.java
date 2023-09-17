@@ -43,7 +43,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             holder.actionImageView.setBackgroundResource(R.drawable.shape_banner);
             holder.actionImageView.setColorFilter(ContextCompat.getColor(context, R.color.white));
         } else {
-            holder.actionImageView.setBackgroundResource(R.drawable.shape_cardview);
+            holder.actionImageView.setBackgroundResource(R.drawable.shape_card_view);
             holder.actionImageView.setColorFilter(ContextCompat.getColor(context, R.color.light_green));
         }
     }

@@ -4,11 +4,13 @@ public class EmotionItem {
     private int emotionImageResId;
     private String emotionDescription;
     private String emotionColor;
+    private boolean isSelected;
 
-    public EmotionItem(int emotionImageResId, String emotionDescription, String emotionColor) {
+    public EmotionItem(int emotionImageResId, String emotionDescription, String emotionColor, boolean isSelected) {
         this.emotionImageResId = emotionImageResId;
         this.emotionDescription = emotionDescription;
         this.emotionColor = emotionColor;
+        this.isSelected = isSelected;
     }
 
     public int getEmotionImageResId() {
@@ -19,8 +21,16 @@ public class EmotionItem {
         return emotionDescription;
     }
 
-    public String getEmotionColor(){
+    public String getEmotionColor() {
         return emotionColor;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
 

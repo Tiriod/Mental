@@ -7,12 +7,10 @@
     android:background="@color/white_background"
     tools:context=".MainUI.HomeFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <!-- 添加头部组件块，用来显示图片 -->
         <ImageView
             android:id="@+id/headerImageView"
@@ -21,21 +19,21 @@
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/image_title" />
-
         <!-- 子容器，横向滑动 -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             app:cardBackgroundColor="#FCFCFC"
-            app:cardCornerRadius="5dp">
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/horizontalRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-
+                android:layout_margin="5dp"
+                android:orientation="vertical" />
         </androidx.cardview.widget.CardView>
 
         <!-- 轮播图模块 -->
@@ -55,14 +53,94 @@
             android:clipToPadding="false"
             android:orientation="vertical" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activityRecyclerView"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="255dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/white_background"
-            android:orientation="vertical"/>
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_activity" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="50dp"
+                    android:gravity="center"
+                    android:letterSpacing="0.5"
+                    android:text="名星活动"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/activityRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_activity" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="50dp"
+                    android:gravity="center"
+                    android:letterSpacing="0.5"
+                    android:text="AI资讯"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleView_home_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp">
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

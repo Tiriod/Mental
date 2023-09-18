@@ -88,6 +88,9 @@ public class AIConsultFragment extends Fragment {
                         throw new RuntimeException(e);
                     }
                     break;
+                case 0x3:
+                    sendMessageChat((String) msg.obj);
+                    break;
             }
         }
     };
@@ -98,6 +101,7 @@ public class AIConsultFragment extends Fragment {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        mRecorder.setAudioEncodingBitRate(16);
         mRecorder.setAudioSamplingRate(16000);
         mRecorder.setAudioChannels(1);
         mRecorder.setOutputFile(mAudioFile);
@@ -152,7 +156,13 @@ public class AIConsultFragment extends Fragment {
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    System.out.println(response.body().string());
+                    String result = response.body().string();
+                    System.out.println();
+                    //得到语音转文字的结果，发送给大模型
+                    Message message = msgHandler.obtainMessage();
+                    message.what = 0x3;
+                    message.obj = result;
+                    msgHandler.sendMessage(message);
                 }
             });
 
@@ -172,6 +182,42 @@ public class AIConsultFragment extends Fragment {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, 1);
         }
+
+    }
+
+    private void sendMessageChat(String message){
+        String content;
+        if(message!=null){
+            content = message;
+        }else{
+            content = talk_editText.getText().toString();
+        }
+        if ("".equals(content)){
+            return;
+        }
+        RequestBody requestBody = new FormBody.Builder()
+                .add("words",content)
+                .build();
+
+        Request request = new Request.Builder()
+                .url("http://10.0.2.145:5000/chat")
+                .post(requestBody)
+                .build();
+        Call newCall = okHttpClient.newCall(request);
+        newCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                Message message = msgHandler.obtainMessage();
+                message.what = 0;
+                message.obj = response.body().string().toString();
+                msgHandler.sendMessage(message);
+            }
+        });
 
     }
 
@@ -215,34 +261,7 @@ public class AIConsultFragment extends Fragment {
         result_textview = view.findViewById(R.id.result_textview);
         Button submitBtn = view.findViewById(R.id.send_btn);
         submitBtn.setOnClickListener(view1 -> {
-            String content = talk_editText.getText().toString();
-            if ("".equals(content)){
-                return;
-            }
-            RequestBody requestBody = new FormBody.Builder()
-                    .add("words",content)
-                    .build();
-
-            Request request = new Request.Builder()
-                    .url("http://10.0.2.145:5000/chat")
-                    .post(requestBody)
-                    .build();
-            Call newCall = okHttpClient.newCall(request);
-            newCall.enqueue(new Callback() {
-                @Override
-                public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
-                }
-
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    Message message = msgHandler.obtainMessage();
-                    message.what = 0;
-                    message.obj = response.body().string().toString();
-                    msgHandler.sendMessage(message);
-                }
-            });
-
+            sendMessageChat(null);
 
         });
 

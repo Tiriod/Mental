@@ -19,10 +19,12 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.mental.Adapter.ActivityAdapter;
 import com.example.mental.Adapter.BannerAdapter;
 import com.example.mental.Adapter.FunctionAdapter;
+import com.example.mental.Adapter.MessageAdapter;
 import com.example.mental.Adapter.ModuleAdapter;
 import com.example.mental.Definition.ActivityItem;
 import com.example.mental.Definition.BannerItem;
 import com.example.mental.Definition.FunctionModule;
+import com.example.mental.Definition.MessageItem;
 import com.example.mental.FunctionUI.AnalyzeActivity;
 import com.example.mental.FunctionUI.FoodActivity;
 import com.example.mental.FunctionUI.GameActivity;
@@ -30,7 +32,7 @@ import com.example.mental.FunctionUI.MeditationActivity;
 import com.example.mental.FunctionUI.NoteActivity;
 import com.example.mental.FunctionUI.ReadActivity;
 import com.example.mental.ModuleUI.CameraModuleActivity;
-import com.example.mental.ModuleUI.TalkModuleActivity;
+import com.example.mental.ModuleUI.LookModuleActivity;
 import com.example.mental.ModuleUI.TestModuleActivity;
 import com.example.mental.R;
 import com.example.mental.Utils.ApiRequest;
@@ -53,19 +55,21 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         initBanner(view);
         initFunctionModules(view);
         initActivityList(view);
+        initInformationRecyclerView(view);
         return view;
     }
 
+    // 人工智能模块栏初始化
     private void initHorizontalRecyclerView(View view) {
         RecyclerView horizontalRecyclerView = view.findViewById(R.id.horizontalRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         horizontalRecyclerView.setLayoutManager(layoutManager);
 
-        List<String> moduleNameList = Arrays.asList("测一测", "照一照", "说一说");
+        List<String> moduleNameList = Arrays.asList("测一测", "照一照", "看一看");
         List<String> moduleIntroduceList = Arrays.asList(
-                "简单问题测出你的心理状态",
+                "只需选择你的想法机器学习就会告诉你答案！",
                 "通过你的面部微表情看看你的心情",
-                "通过你的语言语气来识别情绪"
+                "使用VR技术让你身临其境感受自然放松心情！"
         );
 
         // 添加 PagerSnapHelper
@@ -76,6 +80,7 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         horizontalRecyclerView.setAdapter(adapter);
     }
 
+    // 轮播图内容初始化
     private void initBanner(View view) {
         imageList = new ArrayList<>();
         viewPager = view.findViewById(R.id.viewPager);
@@ -142,6 +147,7 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         });
     }
 
+    // 功能模块栏初始化
     private void initFunctionModules(View view) {
         List<FunctionModule> functionModules = new ArrayList<>();
         functionModules.add(new FunctionModule(R.drawable.icon_function_meditation, "心灵冥想"));
@@ -159,6 +165,7 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         functionRecyclerView.setAdapter(functionModuleAdapter);
     }
 
+    // 活动列表初始化
     private void initActivityList(View view) {
         final List<ActivityItem> activityList = new ArrayList<>();
 
@@ -199,6 +206,29 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         });
     }
 
+    // 资讯信息初始化
+    private void initInformationRecyclerView(View view) {
+        RecyclerView informationRecyclerView = view.findViewById(R.id.recyclerView_home_information);
+        GridLayoutManager informationLayoutManager = new GridLayoutManager(requireContext(), 2);
+        informationRecyclerView.setLayoutManager(informationLayoutManager);
+
+        List<MessageItem> messageItems = new ArrayList<>();
+        // 在这里添加你的资讯数据到 messageItems
+        messageItems.add(new MessageItem(R.drawable.image_banner_i, "日本王八蛋排核废水", "小子日子我看他是活不耐烦了", "2023年8月14日", "百度"));
+        messageItems.add(new MessageItem(R.drawable.image_banner_i, "日本王八蛋排核废水", "小子日子我看他是活不耐烦了", "2023年8月14日", "百度"));
+        messageItems.add(new MessageItem(R.drawable.image_banner_i, "日本王八蛋排核废水", "小子日子我看他是活不耐烦了", "2023年8月14日", "百度"));
+        messageItems.add(new MessageItem(R.drawable.image_banner_i, "日本王八蛋排核废水", "小子日子我看他是活不耐烦了", "2023年8月14日", "百度"));
+        messageItems.add(new MessageItem(R.drawable.image_banner_i, "日本王八蛋排核废水", "小子日子我看他是活不耐烦了", "2023年8月14日", "百度"));
+        messageItems.add(new MessageItem(R.drawable.image_banner_i, "日本王八蛋排核废水", "小子日子我看他是活不耐烦了", "2023年8月14日", "百度"));
+        messageItems.add(new MessageItem(R.drawable.image_banner_i, "日本王八蛋排核废水", "小子日子我看他是活不耐烦了", "2023年8月14日", "百度"));
+        messageItems.add(new MessageItem(R.drawable.image_banner_i, "日本王八蛋排核废水", "小子日子我看他是活不耐烦了", "2023年8月14日", "百度"));
+
+        MessageAdapter messageAdapter = new MessageAdapter(messageItems, requireContext());
+        informationRecyclerView.setAdapter(messageAdapter);
+    }
+
+
+    // 人工智能模块点击跳转事件
     @Override
     public void onModuleClick(int position) {
         switch (position) {
@@ -209,11 +239,12 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 startActivity(new Intent(requireContext(), CameraModuleActivity.class));
                 break;
             case 2:
-                startActivity(new Intent(requireContext(), TalkModuleActivity.class));
+                startActivity(new Intent(requireContext(), LookModuleActivity.class));
                 break;
         }
     }
 
+    // 功能模块点击跳转事件
     @Override
     public void onFunctionClick(int position) {
         switch (position) {

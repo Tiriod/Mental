@@ -69,9 +69,8 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             if (adapterPosition != RecyclerView.NO_POSITION) {
-                for (int i = 0; i < actionItems.size(); i++) {
-                    actionItems.get(i).setSelected(i == adapterPosition);
-                }
+                // 切换选中状态
+                actionItems.get(adapterPosition).setSelected(!actionItems.get(adapterPosition).isSelected());
                 notifyDataSetChanged();
             }
         }

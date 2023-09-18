@@ -10,40 +10,41 @@
     <!-- 添加头部组件块，用来显示图片 -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@color/light_green">
+        android:layout_height="200dp"
+        android:background="@drawable/image_shareloop_title">
 
         <TextView
             android:id="@+id/ShareLoopTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
             android:gravity="center_vertical"
-            android:letterSpacing="0.2"
+            android:letterSpacing="0.1"
             android:text="⼼情分享圈"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/ShareLoopInterview"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="90dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:gravity="center_vertical"
             android:letterSpacing="0.1"
             android:text="您可以在这⾥发布⾃⼰每天的趣事、⼼情、互相分享、互相⿎励"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="normal" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/shareLoop_compile"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="150dp"
             android:orientation="horizontal"
             app:cardCornerRadius="5dp">
             <ImageView

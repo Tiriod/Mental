@@ -2,24 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white_background">
 
     <!-- 添加头部标签的 RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/FoodHeaderRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:background="@color/white_background"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/FoodHeaderRecyclerView">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cardview_light_background"
+            android:background="@color/white_background"
             android:orientation="vertical">
             <!-- res/layout/activity_food.xml -->
 
@@ -40,7 +42,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -71,7 +74,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -102,7 +106,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -132,8 +132,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/EmotionCardView"
                 android:layout_width="match_parent"
-                android:padding="5dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:padding="5dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -33,7 +33,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MessageCardActivity"
+            android:name=".FunctionUI.BookDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FunctionUI.MessageCardActivity"
             android:exported="false" />
         <activity
             android:name=".FunctionUI.ActivityDetailsActivity"

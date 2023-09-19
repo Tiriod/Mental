@@ -1,6 +1,7 @@
 package com.example.mental.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mental.Definition.BookItem;
+import com.example.mental.FunctionUI.BookDetailsActivity;
 import com.example.mental.R;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     private Context context;
     private List<BookItem> bookItems;
+    private BookItem bookItem;
 
     public BookAdapter(Context context, List<BookItem> bookItems) {
         this.context = context;
@@ -34,10 +37,23 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        BookItem bookItem = bookItems.get(position);
+        final BookItem bookItem = bookItems.get(position);
         holder.bookBackgroundImageView.setImageResource(bookItem.getBookBackgroundResId());
         holder.bookTitleTextView.setText(bookItem.getBookTitle());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, BookDetailsActivity.class);
+                // 传递所需字段的值
+                intent.putExtra("bookBackgroundResId", bookItem.getBookBackgroundResId());
+                intent.putExtra("bookTitle", bookItem.getBookTitle());
+                intent.putExtra("bookContent", bookItem.getBookContent());
+                context.startActivity(intent);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -186,6 +185,7 @@ public class NoteActivity extends AppCompatActivity {
 
         // 初始化情绪卡片适配器并设置
         EmotionCardAdapter emotionCardAdapter = new EmotionCardAdapter(emotionCardItems, this);
+        emotionCardLayoutManager.setReverseLayout(true); // 设置为反向布局
         emotionCardRecyclerView.setAdapter(emotionCardAdapter);
 
 
@@ -195,16 +195,26 @@ public class NoteActivity extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
+
+                // 创建一个Handler
+                Handler handler = new Handler();
                 // 保存和上传数据的逻辑
-//                Log.d(TAG, "上传内容");
                 List<ActionCardItem> actionList1 = new ArrayList<>();
                 actionList1.add(new ActionCardItem(R.drawable.icon_action_think, "思考"));
                 actionList1.add(new ActionCardItem(R.drawable.icon_action_eat, "干饭"));
                 actionList1.add(new ActionCardItem(R.drawable.icon_action_daze, "发呆"));
-                EmotionCardItem emotionCard1 = new EmotionCardItem("2023年9月19日 17:55:55", R.drawable.icon_emotion_unknown, "未知", actionList1);
-                emotionCardItems.add(emotionCard1); // 添加到情绪卡片列表
-                Toast.makeText(NoteActivity.this, "提交成功, 等待下方页面刷新...", Toast.LENGTH_SHORT).show();
-                emotionCardAdapter.notifyDataSetChanged();
+                EmotionCardItem emotionCard1 = new EmotionCardItem((String) dateTextView.getText(), R.drawable.icon_emotion_ecstasy, "狂喜", actionList1);
+                // 延迟1秒后执行更新UI的操作
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        emotionCardItems.add(emotionCard1); // 添加到情绪卡片列表
+                        // 更新UI
+                        emotionCardAdapter.notifyDataSetChanged();
+                    }
+                }, 2000); // 1000毫秒 = 1秒
+
+
             }
         });
 

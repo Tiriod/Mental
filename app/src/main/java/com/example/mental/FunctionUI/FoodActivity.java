@@ -1,6 +1,7 @@
 package com.example.mental.FunctionUI;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -109,10 +111,10 @@ public class FoodActivity extends AppCompatActivity {
         FoodAdapter dinnerAdapter = new FoodAdapter(new ArrayList<>());
         dinnerRecyclerView.setAdapter(dinnerAdapter);
 
-        // 获取食物数据
-        foodDataFetchDataForCategory("breakfast"); // 获取早餐数据
-        foodDataFetchDataForCategory("lunch");     // 获取午餐数据
-        foodDataFetchDataForCategory("dinner");    // 获取晚餐数据
+        // In your onCreate method, call the method for each category with the respective RecyclerView
+        foodDataFetchDataForCategory("breakfast", breakfastRecyclerView);
+        foodDataFetchDataForCategory("lunch", lunchRecyclerView);
+        foodDataFetchDataForCategory("dinner", dinnerRecyclerView);
 
     }
 
@@ -139,14 +141,19 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     // 使用API请求数据渲染内容
-    private void foodDataFetchDataForCategory(String category) {
+    private void foodDataFetchDataForCategory(String category, RecyclerView recyclerView) {
         // 创建一个 OkHttp 客户端
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.SECONDS) // 设置连接超时时间为1秒
+                .readTimeout(1, TimeUnit.SECONDS)    // 设置读取超时时间为1秒
+                .build();
 
         // 构建 POST 数据
         JSONObject postData = new JSONObject();
         try {
             postData.put("category", category);
+            Log.d("FoodActivity", "Fetching data for category: " + category);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -192,109 +199,27 @@ public class FoodActivity extends AppCompatActivity {
                 } else {
                     // 请求失败，处理错误
                     runOnUiThread(() -> {
-                        // 根据需要处理请求失败的情况
-                        String defaultData = "[\n" +
-                                "    {\n" +
-                                "        \"imageResource\": image_food_fried_potato_chips,\n" +
-                                "        \"name\": \"油条\",\n" +
-                                "        \"quantity\": \"100\",\n" +
-                                "        \"calories\": \"386\"\n" +
-                                "    },\n" +
-                                "    {\n" +
-                                "        \"imageResource\": image_food_fried_potato_chips,\n" +
-                                "        \"name\": \"油炸土豆片\",\n" +
-                                "        \"quantity\": \"100\",\n" +
-                                "        \"calories\": \"612\"\n" +
-                                "    },\n" +
-                                "    {\n" +
-                                "        \"imageResource\": image_food_fried_potato_chips,\n" +
-                                "        \"name\": \"食物1\",\n" +
-                                "        \"quantity\": \"150\",\n" +
-                                "        \"calories\": \"300\"\n" +
-                                "    }\n" +
-                                "]\n";
-                        try {
-                            JSONArray foodItemsArray = new JSONArray(defaultData);
-                            List<FoodItem> foodItems = new ArrayList<>();
-
-                            for (int i = 0; i < foodItemsArray.length(); i++) {
-                                JSONObject foodItemObject = foodItemsArray.getJSONObject(i);
-                                String imageResourceStr = foodItemObject.getString("imageResource"); // 注意这里是字符串
-                                int imageResource = getResources().getIdentifier(imageResourceStr, "drawable", getPackageName());
-                                String name = foodItemObject.getString("name");
-                                String quantity = foodItemObject.getString("quantity");
-                                String calories = foodItemObject.getString("calories");
-                                // 可能还需要解析其他属性
-
-                                // 创建 FoodItem 对象并添加到列表
-                                FoodItem foodItem = new FoodItem(imageResource, name, quantity + "g", calories + "千焦耳");
-                                foodItems.add(foodItem);
-                            }
-
-                            // 更新 UI，需要在主线程中执行
-                            runOnUiThread(() -> {
-                                // 根据食物类别更新适配器，这里使用默认数据
-                                updateFoodAdapter(foodItems);
-                            });
-                        } catch (JSONException ex) {
-                            ex.printStackTrace();
+                        FoodAdapter adapter = (FoodAdapter) recyclerView.getAdapter();
+                        if (adapter != null) {
+                            adapter.updateFoodItems(getDefaultFoodData(category));
                         }
                     });
+
+
                 }
             }
 
             @Override
             public void onFailure(Call call, IOException e) {
                 // 请求发生异常，处理异常
+                // 请求失败，处理错误
                 runOnUiThread(() -> {
-                    // 根据需要处理请求异常的情况
-                    String defaultData = "[\n" +
-                            "    {\n" +
-                            "        \"imageResource\": image_food_rice,\n" +
-                            "        \"name\": \"油条\",\n" +
-                            "        \"quantity\": \"100\",\n" +
-                            "        \"calories\": \"386\"\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"imageResource\": image_food_fried_potato_chips,\n" +
-                            "        \"name\": \"油炸土豆片\",\n" +
-                            "        \"quantity\": \"100\",\n" +
-                            "        \"calories\": \"612\"\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"imageResource\": image_food_fried_potato_chips,\n" +
-                            "        \"name\": \"食物1\",\n" +
-                            "        \"quantity\": \"150\",\n" +
-                            "        \"calories\": \"300\"\n" +
-                            "    }\n" +
-                            "]\n";
-                    try {
-                        // 解析 JSON 数据
-                        JSONArray foodItemsArray = new JSONArray(defaultData);
-                        List<FoodItem> foodItems = new ArrayList<>();
-
-                        for (int i = 0; i < foodItemsArray.length(); i++) {
-                            JSONObject foodItemObject = foodItemsArray.getJSONObject(i);
-                            String imageResourceStr = foodItemObject.getString("imageResource"); // 注意这里是字符串
-                            int imageResource = getResources().getIdentifier(imageResourceStr, "drawable", getPackageName());
-                            String name = foodItemObject.getString("name");
-                            String quantity = foodItemObject.getString("quantity");
-                            String calories = foodItemObject.getString("calories");
-
-                            // 创建 FoodItem 对象并添加到列表
-                            FoodItem foodItem = new FoodItem(imageResource, name, quantity + "g", calories + "千焦耳");
-                            foodItems.add(foodItem);
-                        }
-
-                        // 更新 UI，需要在主线程中执行
-                        runOnUiThread(() -> {
-                            // 根据食物类别更新适配器，这里使用默认数据
-                            updateFoodAdapter(foodItems);
-                        });
-                    } catch (JSONException ex) {
-                        ex.printStackTrace();
+                    FoodAdapter adapter = (FoodAdapter) recyclerView.getAdapter();
+                    if (adapter != null) {
+                        adapter.updateFoodItems(getDefaultFoodData(category));
                     }
                 });
+
             }
         });
     }
@@ -324,5 +249,27 @@ public class FoodActivity extends AppCompatActivity {
         });
     }
 
+    private List<FoodItem> getDefaultFoodData(String category) {
+        List<FoodItem> defaultFoodItems = new ArrayList<>();
 
+        switch (category) {
+            case "breakfast":
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_breakfast_pdsrz, "皮蛋瘦肉粥", "100g", "52卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_breakfast_yt, "油条", "100g", "386卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_breakfast_egg, "鸡蛋", "100g", "155卡路里"));
+                break;
+            case "lunch":
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_rice, "午餐默认食物1", "150g", "300卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_test, "午餐默认食物2", "200g", "450卡路里"));
+                break;
+            case "dinner":
+                defaultFoodItems.add(new FoodItem(R.drawable.image_test, "晚餐默认食物1", "120g", "280卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_test, "晚餐默认食物2", "180g", "390卡路里"));
+                break;
+            default:
+                // Handle other categories here, if needed
+                break;
+        }
+        return defaultFoodItems;
+    }
 }

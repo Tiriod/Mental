@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,6 +41,8 @@ public class MeditationActivity extends AppCompatActivity implements MeditationC
     private MeditationIntroduceAdapter meditationIntroduceAdapter;
     private RecyclerView audioCardRecyclerView;
     private AudioCardAdapter audioCardAdapter;
+
+    private String category;
     List<AudioCardItem> audioCardItems = new ArrayList<>();
 
     @Override
@@ -108,6 +111,7 @@ public class MeditationActivity extends AppCompatActivity implements MeditationC
 
     // 介绍卡片点击渲染
     private void updateMeditationContents(String selectedClass) {
+        audioCardItems.clear();
         meditationContents.clear();
         meditationIntroduces.clear();
         // 根据点击的冥想类别，将对应的介绍内容加入到列表中
@@ -155,7 +159,10 @@ public class MeditationActivity extends AppCompatActivity implements MeditationC
         }
 
         // 创建一个 OkHttp 客户端
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.SECONDS) // 设置连接超时时间为2秒
+                .readTimeout(1, TimeUnit.SECONDS)    // 设置读取超时时间为2秒
+                .build();
 
         // 创建请求
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
@@ -184,15 +191,28 @@ public class MeditationActivity extends AppCompatActivity implements MeditationC
                 } else {
                     // 请求失败，处理错误
                     runOnUiThread(() -> {
-                        // 根据需要处理请求失败的情况
-                        // 在这里设置默认结果
-                        AudioCardItem[] defaultItems = {
-                                new AudioCardItem("Glad You Came", 413, R.drawable.image_activity_1, R.raw.gladyoucame),
-                                new AudioCardItem("Toxic", 114514, R.drawable.image_activity_1, R.raw.toxic),
-                                new AudioCardItem("My Stupid Heart", 114514, R.drawable.image_activity_1, R.raw.mystupidheart)
+                        // 根据需要处理请求异常的情况
+                        List<AudioCardItem> audioCardItems = new ArrayList<>();
+                        switch (category) {
+                            case "脑波":
+                                // 在这里设置默认结果
+                                audioCardItems.add(new AudioCardItem("塞他脑波", 115, R.drawable.image_meditation_netral, R.raw.meditataion_audio_stnb));
+                                audioCardItems.add(new AudioCardItem("阿尔法脑波", 110, R.drawable.image_meditation_alpha, R.raw.meditataion_audio_alpha));
+                                audioCardItems.add(new AudioCardItem("失重催眠曲", 121, R.drawable.image_meditation_loseweight, R.raw.meditataion_audio_szcmq));
+                                audioCardItems.add(new AudioCardItem("迷河催眠曲", 54, R.drawable.image_meditation_river, R.raw.meditataion_audio_mhcmq));
                                 // 添加其他默认项
-                        };
-                        audioCardItems = Arrays.asList(defaultItems);
+                                break;
+                            case "自然":
+                            case "动物":
+                            case "灵感":
+                            case "生活":
+                                // 在这里设置默认结果
+                                audioCardItems.add(new AudioCardItem("清晨", 16, R.drawable.image_meditation_morning, R.raw.meditataion_audio_morning));
+                                audioCardItems.add(new AudioCardItem("田园", 77, R.drawable.image_meditation_road, R.raw.meditataion_audio_morning));
+                                audioCardItems.add(new AudioCardItem("乡间", 88, R.drawable.image_meditataion_farm, R.raw.meditataion_audio_morning));
+                                // 添加其他默认项
+                                break;
+                        }
 
                         // 更新音频卡片列表
                         audioCardAdapter.updateAudioCardItems(audioCardItems);
@@ -205,14 +225,28 @@ public class MeditationActivity extends AppCompatActivity implements MeditationC
                 // 请求发生异常，处理异常
                 runOnUiThread(() -> {
                     // 根据需要处理请求异常的情况
-                    // 在这里设置默认结果
-                    AudioCardItem[] defaultItems = {
-                            new AudioCardItem("Glad You Came", 413, R.drawable.image_activity_1, R.raw.gladyoucame),
-                            new AudioCardItem("Toxic", 114514, R.drawable.image_activity_1, R.raw.toxic),
-                            new AudioCardItem("My Stupid Heart", 114514, R.drawable.image_activity_1, R.raw.mystupidheart)
+                    // 根据需要处理请求异常的情况
+                    List<AudioCardItem> audioCardItems = new ArrayList<>();
+                    switch (category) {
+                        case "脑波":
+                            // 在这里设置默认结果
+                            audioCardItems.add(new AudioCardItem("塞他脑波", 115, R.drawable.image_meditation_netral, R.raw.meditataion_audio_stnb));
+                            audioCardItems.add(new AudioCardItem("阿尔法脑波", 110, R.drawable.image_meditation_alpha, R.raw.meditataion_audio_alpha));
+                            audioCardItems.add(new AudioCardItem("失重催眠曲", 114514, R.drawable.image_meditation_loseweight, R.raw.meditataion_audio_szcmq));
+                            audioCardItems.add(new AudioCardItem("迷河催眠曲", 114514, R.drawable.image_meditation_river, R.raw.meditataion_audio_mhcmq));
                             // 添加其他默认项
-                    };
-                    audioCardItems = Arrays.asList(defaultItems);
+                            break;
+                        case "自然":
+                        case "动物":
+                        case "灵感":
+                        case "生活":
+                            // 在这里设置默认结果
+                            audioCardItems.add(new AudioCardItem("清晨", 0, R.drawable.image_meditation_morning, R.raw.meditataion_audio_morning));
+                            audioCardItems.add(new AudioCardItem("田园", 0, R.drawable.image_meditation_road, R.raw.meditataion_audio_relax));
+                            audioCardItems.add(new AudioCardItem("乡间", 0, R.drawable.image_meditataion_farm, R.raw.meditataion_audio_wind));
+                            // 添加其他默认项
+                            break;
+                    }
 
                     // 更新音频卡片列表
                     audioCardAdapter.updateAudioCardItems(audioCardItems);

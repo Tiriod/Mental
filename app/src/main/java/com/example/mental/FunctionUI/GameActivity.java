@@ -41,7 +41,7 @@ public class GameActivity extends Activity {
         webView.loadUrl(url);
 
         // 初始化音乐播放器
-        mediaPlayer = MediaPlayer.create(this, R.raw.funkytown);
+        mediaPlayer = MediaPlayer.create(this, R.raw.game_audio_funkytown);
         mediaPlayer.setLooping(true); // 设置循环播放
 
         // 开始播放音乐

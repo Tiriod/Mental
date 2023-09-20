@@ -42,7 +42,7 @@ public class LookModuleActivity extends AppCompatActivity {
         plManager.setContentView((ViewGroup) view);
         plManager.onCreate();
         PLSphericalPanorama panorama = new PLSphericalPanorama();
-        panorama.setImage(new PLImage(PLUtils.getBitmap(this, R.raw.image_a), false));
+        panorama.setImage(new PLImage(PLUtils.getBitmap(this, R.drawable.image_vr_yzf), false));
         plManager.setPanorama(panorama);
         plManager.setAccelerometerEnabled(true);
         plManager.setAccelerometerSensitivity(3f);

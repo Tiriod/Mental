@@ -2,6 +2,7 @@ package com.example.mental.Adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     }
 
     // 添加照片的方法
-    public void addPhoto(Bitmap photo) {
-        photos.add(photo); // 将新的照片添加到列表
+    public void addPhoto(byte[] photoData) {
+        // 裁剪照片为1:1的大小
+        Bitmap croppedPhoto = cropToSquare(BitmapFactory.decodeByteArray(photoData, 0, photoData.length));
+
+        photos.add(croppedPhoto); // 将新的照片添加到列表
         notifyDataSetChanged(); // 通知适配器数据已更改
     }
 
@@ -62,5 +66,18 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
             super(itemView);
             photoImageView = itemView.findViewById(R.id.photo_item_image);
         }
+    }
+
+    // 辅助方法：将图片裁剪为1:1的大小
+    private Bitmap cropToSquare(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        int size = Math.min(width, height);
+
+        int x = (width - size) / 2;
+        int y = (height - size) / 2;
+
+        return Bitmap.createBitmap(bitmap, x, y, size, size);
     }
 }

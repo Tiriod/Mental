@@ -19,10 +19,12 @@ import java.util.List;
 public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionViewHolder> {
     private List<EmotionItem> emotionItems;
     private Context context;
+    private boolean isClickable; // 标志，用于控制是否启用点击事件
 
-    public EmotionAdapter(List<EmotionItem> emotionItems, Context context) {
+    public EmotionAdapter(List<EmotionItem> emotionItems, Context context, boolean isClickable) {
         this.emotionItems = emotionItems;
         this.context = context;
+        this.isClickable = isClickable;
     }
 
     @NonNull
@@ -45,6 +47,10 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
         // 设置透明度
         float alpha = emotionItem.isSelected() ? 1f : 0.5f;
         holder.itemView.setAlpha(alpha);
+
+        // 根据标志来启用或禁用点击事件
+        holder.itemView.setClickable(isClickable);
+        holder.itemView.setFocusable(isClickable);
     }
 
     @Override
@@ -65,12 +71,14 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
 
         @Override
         public void onClick(View v) {
-            int adapterPosition = getAdapterPosition();
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                for (int i = 0; i < emotionItems.size(); i++) {
-                    emotionItems.get(i).setSelected(i == adapterPosition);
+            if (isClickable) { // 只有在 isClickable 为 true 时才处理点击事件
+                int adapterPosition = getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    for (int i = 0; i < emotionItems.size(); i++) {
+                        emotionItems.get(i).setSelected(i == adapterPosition);
+                    }
+                    notifyDataSetChanged();
                 }
-                notifyDataSetChanged();
             }
         }
     }

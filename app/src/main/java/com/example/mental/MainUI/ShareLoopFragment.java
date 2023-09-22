@@ -35,10 +35,10 @@ public class ShareLoopFragment extends Fragment {
         // 初始化数据
         shareLoopItems = new ArrayList<>();
         // 添加示例 ShareLoopItem 数据到 shareLoopItems 列表
-        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_happy, "文本内容", Arrays.asList(R.drawable.image_test, R.drawable.image_test), "2023-09-14"));
-        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_unknown, "文本内容", Arrays.asList(R.drawable.image_test), "2023-09-14"));
-        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_bad, "文本内容", Arrays.asList(R.drawable.image_test, R.drawable.image_test, R.drawable.image_test), "2023-09-14"));
-        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_ecstasy, "文本内容", Arrays.asList(R.drawable.image_test, R.drawable.image_test, R.drawable.image_test, R.drawable.image_test), "2023-09-14"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_terrible, "今天去爬雁荡山, 爬一半下雨了，几个人在亭子里守候了大半辈子，终于是忍不住去买了雨衣，灰溜溜下山了", Arrays.asList(R.drawable.image_shareloop_3_1, R.drawable.image_shareloop_3_2, R.drawable.image_shareloop_3_4, R.drawable.image_shareloop_3_5), "2023-09-11"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_unknown, "闲来无事看看楼盘", Arrays.asList(R.drawable.image_shareloop_2_1, R.drawable.image_shareloop_2_2, R.drawable.image_shareloop_2_3, R.drawable.image_shareloop_2_4, R.drawable.image_shareloop_3_3), "2023-09-10"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar, "时间间", R.drawable.icon_emotion_ecstasy, "今天出去爽歪歪，玩水玩起来，爽歪歪！！！", Arrays.asList(R.drawable.image_shareloop_4_1, R.drawable.image_shareloop_4_2, R.drawable.image_shareloop_4_3), "2023-08-12"));
+        shareLoopItems.add(new ShareLoopItem(R.drawable.image_avatar_1, "佛怒火莲", R.drawable.icon_emotion_bad, "分享今日“美食”😒", Arrays.asList(R.drawable.image_shareloop_1_1, R.drawable.image_shareloop_1_2), "2023-08-11"));
         // 初始化适配器
         shareLoopAdapter = new ShareLoopAdapter(getActivity(), shareLoopItems);
         // 设置 RecyclerView 的布局管理器，你可以选择 LinearLayoutManager 或其他适当的布局管理器

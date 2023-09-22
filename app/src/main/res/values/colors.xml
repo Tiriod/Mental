@@ -17,4 +17,9 @@
     <color name="freesia_yellow">#F4D800</color>
     <color name="origin">#F1840B</color>
     <color name="light_grey">#C9C9C9</color>
+    <color name="emotion_happy">#0EBF7B</color>
+    <color name="emotion_unknown">#1095C1</color>
+    <color name="emotion_bad">#ED9A0C</color>
+    <color name="emotion_terrible">#CB4F4F</color>
+    <color name="emotion_ecstasy">#77CA40</color>
 </resources>

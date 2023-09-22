@@ -19,6 +19,7 @@ import com.example.mental.Adapter.HeaderAdapter;
 import com.example.mental.Adapter.PhotoAdapter;
 import com.example.mental.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -83,17 +84,42 @@ public class ShareLoopEditActivity extends AppCompatActivity {
             // 获取选定的图片 URI
             Uri imageUri = data.getData();
 
-            // 使用 URI 加载图片并添加到 GridView 中
+            // 使用 URI 加载图片
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                // 在活动或片段中调用 addPhoto 方法以添加新的照片
+                Bitmap originalBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
 
-                photoAdapter.addPhoto(bitmap);
+                // 裁剪图片为1:1的大小
+                Bitmap croppedBitmap = cropToSquare(originalBitmap);
+
+                // 在活动或片段中调用 addPhoto 方法以添加新的照片
+                byte[] croppedImageData = bitmapToByteArray(croppedBitmap);
+                photoAdapter.addPhoto(croppedImageData);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    // 辅助方法：将图片裁剪为1:1的大小
+    private Bitmap cropToSquare(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        int size = Math.min(width, height);
+
+        int x = (width - size) / 2;
+        int y = (height - size) / 2;
+
+        return Bitmap.createBitmap(bitmap, x, y, size, size);
+    }
+
+    // 辅助方法：将 Bitmap 转换为字节数组
+    private byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
+
 
 }

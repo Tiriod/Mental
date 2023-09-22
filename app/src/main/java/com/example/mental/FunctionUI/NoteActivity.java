@@ -135,7 +135,8 @@ public class NoteActivity extends AppCompatActivity {
         GridLayoutManager emotionLayoutManager = new GridLayoutManager(this, emotionItems.size(), GridLayoutManager.VERTICAL, false);
         emotionRecyclerView.setLayoutManager(emotionLayoutManager);
         // 初始化情绪记录的适配器并设置
-        emotionAdapter = new EmotionAdapter(emotionItems, this);
+        boolean isClickable = true; // 在本Activity中禁用点击事件
+        emotionAdapter = new EmotionAdapter(emotionItems, this, isClickable);
         emotionRecyclerView.setAdapter(emotionAdapter);
 
 
@@ -175,8 +176,24 @@ public class NoteActivity extends AppCompatActivity {
 
         List<ActionCardItem> actionList2 = new ArrayList<>();
         actionList2.add(new ActionCardItem(R.drawable.icon_action_sleep, "睡觉"));
+        actionList2.add(new ActionCardItem(R.drawable.icon_action_read, "阅读"));
         EmotionCardItem emotionCard2 = new EmotionCardItem("2023年9月18日 13:55:26", R.drawable.icon_emotion_terrible, "难过", actionList2);
         emotionCardItems.add(emotionCard2); // 添加到情绪卡片列表
+
+        List<ActionCardItem> actionList3 = new ArrayList<>();
+        actionList3.add(new ActionCardItem(R.drawable.icon_action_study, "学习"));
+        actionList3.add(new ActionCardItem(R.drawable.icon_action_bike, "出游"));
+        actionList3.add(new ActionCardItem(R.drawable.icon_action_eat, "干饭"));
+        actionList3.add(new ActionCardItem(R.drawable.icon_action_coffee, "咖啡"));
+        EmotionCardItem emotionCard3 = new EmotionCardItem("2023年9月18日 13:55:26", R.drawable.icon_emotion_terrible, "难过", actionList3);
+        emotionCardItems.add(emotionCard3); // 添加到情绪卡片列表
+
+        List<ActionCardItem> actionList4 = new ArrayList<>();
+        actionList4.add(new ActionCardItem(R.drawable.icon_action_sleep, "睡觉"));
+        actionList4.add(new ActionCardItem(R.drawable.icon_action_eat, "干饭"));
+        actionList4.add(new ActionCardItem(R.drawable.icon_action_tv, "电视"));
+        EmotionCardItem emotionCard4 = new EmotionCardItem("2023年9月18日 13:55:26", R.drawable.icon_emotion_terrible, "难过", actionList4);
+        emotionCardItems.add(emotionCard4); // 添加到情绪卡片列表
 
         // 初始化 EmotionCardView 的 RecyclerView
         RecyclerView emotionCardRecyclerView = findViewById(R.id.EmotionCardView);

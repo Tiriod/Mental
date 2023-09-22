@@ -259,12 +259,18 @@ public class FoodActivity extends AppCompatActivity {
                 defaultFoodItems.add(new FoodItem(R.drawable.image_food_breakfast_egg, "鸡蛋", "100g", "155卡路里"));
                 break;
             case "lunch":
-                defaultFoodItems.add(new FoodItem(R.drawable.image_food_rice, "午餐默认食物1", "150g", "300卡路里"));
-                defaultFoodItems.add(new FoodItem(R.drawable.image_test, "午餐默认食物2", "200g", "450卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_rice, "米饭", "100g", "183卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_lunch_beef, "牛肉", "100g", "192卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_lunch_qz, "茄子", "100g", "25卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_lunch_tomato, "番茄", "100g", "17卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_lunch_apple, "苹果", "100g", "52卡路里"));
                 break;
             case "dinner":
-                defaultFoodItems.add(new FoodItem(R.drawable.image_test, "晚餐默认食物1", "120g", "280卡路里"));
-                defaultFoodItems.add(new FoodItem(R.drawable.image_test, "晚餐默认食物2", "180g", "390卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_rice, "米饭", "100g", "183卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_dinner_sc, "生菜", "100g", "15卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_dinner_hg, "黄瓜", "100g", "15卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_dinner_ht, "火腿", "100g", "145卡路里"));
+                defaultFoodItems.add(new FoodItem(R.drawable.image_food_dinner_milk, "牛奶", "100g", "42卡路里"));
                 break;
             default:
                 // Handle other categories here, if needed

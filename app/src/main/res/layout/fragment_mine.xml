@@ -1,21 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_background"
     tools:context=".MainUI.MineFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mineUserCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-         <androidx.recyclerview.widget.RecyclerView
+            android:layout_height="wrap_content"
+            android:background="@color/white_background" />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mineUserMode"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/white_background" />
     </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/button_logOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="10dp"
+        android:background="@color/light_green"
+        android:padding="5dp"
+        app:cardBackgroundColor="@color/light_green"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:letterSpacing="2"
+            android:text="注销"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
 
 </FrameLayout>

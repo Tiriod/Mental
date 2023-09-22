@@ -241,9 +241,9 @@ public class MeditationActivity extends AppCompatActivity implements MeditationC
                         case "灵感":
                         case "生活":
                             // 在这里设置默认结果
-                            audioCardItems.add(new AudioCardItem("清晨", 0, R.drawable.image_meditation_morning, R.raw.meditataion_audio_morning));
-                            audioCardItems.add(new AudioCardItem("田园", 0, R.drawable.image_meditation_road, R.raw.meditataion_audio_relax));
-                            audioCardItems.add(new AudioCardItem("乡间", 0, R.drawable.image_meditataion_farm, R.raw.meditataion_audio_wind));
+                            audioCardItems.add(new AudioCardItem("清晨", 16, R.drawable.image_meditation_morning, R.raw.meditataion_audio_morning));
+                            audioCardItems.add(new AudioCardItem("田园", 77, R.drawable.image_meditation_road, R.raw.meditataion_audio_morning));
+                            audioCardItems.add(new AudioCardItem("乡间", 88, R.drawable.image_meditataion_farm, R.raw.meditataion_audio_morning));
                             // 添加其他默认项
                             break;
                     }

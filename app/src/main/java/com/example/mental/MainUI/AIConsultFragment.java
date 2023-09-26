@@ -217,7 +217,7 @@ public class AIConsultFragment extends Fragment {
         webSettings.setDomStorageEnabled(true);
         // 启用 JavaScript 支持
         webSettings.setJavaScriptEnabled(true);
-        sceneView.loadUrl("https://egdw.gitee.io/mental_model/examples/three.js/examples/webgl_animation_skinning_additive_blending%20copy.html");
+        sceneView.loadUrl("http://192.168.1.106:8848/untitled folder/examples/three.js/examples/webgl_animation_skinning_additive_blending copy.html");
         // 用于处理长按操作
         Handler longPressHandler = new Handler();
         ImageView image_voice = view.findViewById(R.id.image_voice);

@@ -37,7 +37,7 @@ public class MineFragment extends Fragment {
         mineUserCardRecyclerView.setLayoutManager(userCardLayoutManager);
         // 创建用户卡片数据列表
         List<UserCardItem> userCardItems = new ArrayList<>();
-        userCardItems.add(new UserCardItem(R.drawable.image_avatar, "时间间", "18989431998"));
+        userCardItems.add(new UserCardItem(R.drawable.image_avatar, "时间间", "189****1998"));
         // ... 添加更多用户卡片数据项
         // 初始化适配器并设置
         UserCardAdapter userCardAdapter = new UserCardAdapter(userCardItems, getContext());

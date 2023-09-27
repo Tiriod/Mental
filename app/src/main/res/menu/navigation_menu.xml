@@ -9,10 +9,10 @@
         android:id="@+id/AIConsult"
         android:icon="@drawable/selector_aiconsult"
         android:title="AI咨询" />
-    <item
-        android:id="@+id/shareLoop"
-        android:icon="@drawable/selector_shareloop"
-        android:title="分享圈" />
+<!--    <item-->
+<!--        android:id="@+id/shareLoop"-->
+<!--        android:icon="@drawable/selector_shareloop"-->
+<!--        android:title="分享圈" />-->
     <item
         android:id="@+id/mine"
         android:icon="@drawable/selector_mine"

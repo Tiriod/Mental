@@ -19,8 +19,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.HttpAuthHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,9 +37,13 @@ import com.example.mental.R;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 
+import okhttp3.Authenticator;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Credentials;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -45,6 +51,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.Route;
 import pl.droidsonroids.gif.GifImageView;
 
 public class AIConsultFragment extends Fragment {
@@ -159,13 +166,14 @@ public class AIConsultFragment extends Fragment {
             fis.read(b);
             fis.close();
             RequestBody fileBody = RequestBody.create(MediaType.parse("audio/wav"), b);
+            //设置代理服务器账号密码
 
             MultipartBody body = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("audio", "voice_file", fileBody)
                     .build();
             Request request = new Request.Builder()
-                    .url("http://192.168.1.106:5001/voice")
+                    .url("http://10.0.16.15:5001/voice")
                     .method("POST", body)
                     .build();
             okHttpClient.newCall(request).enqueue(new Callback() {
@@ -207,17 +215,43 @@ public class AIConsultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // 网络请求初始化
-        okHttpClient = new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        //代理服务器的IP和端口号
+        builder.proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("175.24.153.185", 43213)));
+        //代理的鉴权账号密码
+        final String userName = "hongdeyan";
+        final String password = "H378759617!";
+        builder.proxyAuthenticator(new Authenticator() {
+            @Override
+            public Request authenticate(Route route, Response response) throws IOException {
+                //设置代理服务器账号密码
+                String credential = Credentials.basic(userName, password);
+                return response.request().newBuilder()
+                        .header("Proxy-Authorization", credential)
+                        .build();
+            }
+        });
+        okHttpClient = builder.build();
+
+
+
+//        okHttpClient = new OkHttpClient();
         // 视图渲染
         view = inflater.inflate(R.layout.fragment_aiconsult, container, false);
         // WebView视图使用
         sceneView = view.findViewById(R.id.sceneView);
+        sceneView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
+                handler.proceed("hongdeyan","H378759617!");
+            }
+        });
         WebSettings webSettings = sceneView.getSettings();
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webSettings.setDomStorageEnabled(true);
         // 启用 JavaScript 支持
         webSettings.setJavaScriptEnabled(true);
-        sceneView.loadUrl("http://192.168.1.106:8848/untitled folder/examples/three.js/examples/webgl_animation_skinning_additive_blending copy.html");
+        sceneView.loadUrl("http://10.0.16.15:5500/untitled folder/examples/three.js/examples/webgl_animation_skinning_additive_blending copy.html");
         // 用于处理长按操作
         Handler longPressHandler = new Handler();
         ImageView image_voice = view.findViewById(R.id.image_voice);

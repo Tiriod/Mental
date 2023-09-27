@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        initHorizontalRecyclerView(view);
+//        initHorizontalRecyclerView(view);
         initBanner(view);
         initFunctionModules(view);
         initActivityList(view);
@@ -159,10 +159,10 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
     private void initFunctionModules(View view) {
         List<FunctionModule> functionModules = new ArrayList<>();
         functionModules.add(new FunctionModule(R.drawable.icon_function_meditation, "心灵冥想"));
-        functionModules.add(new FunctionModule(R.drawable.icon_function_food, "心身滋养"));
-        functionModules.add(new FunctionModule(R.drawable.icon_function_note, "心绪记录"));
-        functionModules.add(new FunctionModule(R.drawable.icon_function_analyze, "心情解析"));
-        functionModules.add(new FunctionModule(R.drawable.icon_function_read, "心理探索"));
+//        functionModules.add(new FunctionModule(R.drawable.icon_function_food, "心身滋养"));
+//        functionModules.add(new FunctionModule(R.drawable.icon_function_note, "心绪记录"));
+//        functionModules.add(new FunctionModule(R.drawable.icon_function_analyze, "心情解析"));
+//        functionModules.add(new FunctionModule(R.drawable.icon_function_read, "心理探索"));
         functionModules.add(new FunctionModule(R.drawable.icon_function_game, "逃出困境"));
 
         RecyclerView functionRecyclerView = view.findViewById(R.id.functionRecyclerView);
@@ -287,7 +287,10 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
                 startActivity(new Intent(requireContext(), MeditationActivity.class));
                 break;
             case 1:
-                startActivity(new Intent(requireContext(), FoodActivity.class));
+
+                startActivity(new Intent(requireContext(), GameActivity.class));
+
+//                startActivity(new Intent(requireContext(), FoodActivity.class));
                 break;
             case 2:
                 startActivity(new Intent(requireContext(), NoteActivity.class));

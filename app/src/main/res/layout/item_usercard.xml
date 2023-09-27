@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@android:color/transparent"
-            android:text="我就是我！不一样的烟火！"
+            android:text="好好学习！天天向上！"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="normal"

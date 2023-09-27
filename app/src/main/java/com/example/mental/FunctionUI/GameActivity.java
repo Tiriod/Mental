@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.webkit.HttpAuthHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +33,12 @@ public class GameActivity extends Activity {
         headerRecyclerView.setAdapter(headerAdapter);
         // 获取 WebView 的引用
         webView = findViewById(R.id.game_escape);
-
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
+                handler.proceed("hongdeyan","H378759617!");
+            }
+        });
         // 配置 WebView 设置
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true); // 启用 JavaScript 支持

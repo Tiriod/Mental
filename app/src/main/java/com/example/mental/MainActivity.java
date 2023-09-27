@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.AIConsult:
                         selectedFragment = new AIConsultFragment();
                         break;
-                    case R.id.shareLoop:
-                        selectedFragment = new ShareLoopFragment();
-                        break;
+//                    case R.id.shareLoop:
+//                        selectedFragment = new ShareLoopFragment();
+//                        break;
                     case R.id.mine:
                         selectedFragment = new MineFragment();
                         break;

@@ -226,7 +226,7 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         messageItems.add(new MessageItem(R.drawable.image_message_5, "AI 可以取代心理治療嗎？一位心理師與 ChatGpt 的深夜對話...", "      你聽過 AI 嗎？昨晚下班後，決定與名為 ChatGpt 的 AI 進行一場對話。原因很簡單：有人說，ChatGpt 可以寫詩，可以發Email，還可以即興唱一首主題為「椅子」的日文歌。\n     那麼，AI 可以取代心理治療嗎？\n      這，就是這場對話的動機。\n      我覺得目前民用的AI，有點像是以前台中一中街的刀削麵。因為生意太好了，老闆弄了一台機器人，專門把麵條削好。意思是：機器人就是負責「削」，削好了還是要由人工來檢查、來煮熟、來調味。\n     目前我用 ChatGPT-4，也是類似的感想。\n       先不管字數限制的問題。對我來說最好用的功能如翻譯、整理段落等。一旦一次給太多資料（麵條），AI就會出包。更糟糕的是：\n1. 因為你一次給很多資料。就人性而言，會更懶得檢查。\n2. ChatGpt就算是4，還是會有「一本正經說幹話」的毛病。\n3. 信任難以建立，容易摧毀，只要抓到AI一次說謊，那就...\n        所以人類那種「完蛋了！以後什麼東西丟給AI，它就可以無止盡地工作，取代我們每個人」的幻想，至少目前還是沒有成立。\n      就算有了削麵機器人，我們還是需要煮麵師傅。就算有了無盡的文字產出，我們還是需要編輯。\n1. 能夠分辨真貨與假貨、好貨與爛貨的人，永遠是未來需要的人。\n2. 這也意味著「專家效度」的微妙邏輯，什麼是夠好的內容？讓我們來訪問一群專家吧。\n3. 少了對AI的全面信任（或許是好事），我目前的解法是：一次只給AI一小段。", "2023年9月6日", "家齊心理師說故事"));
         messageItems.add(new MessageItem(R.drawable.image_message_6, "和機器人聊心事？歐美AI心理諮商熱潮飆升中", "和機器人聊心事？歐美AI心理諮商熱潮飆升中", "2023年9月13日", "天下杂志"));
         messageItems.add(new MessageItem(R.drawable.image_message_7, "AI 入局心理健康：是抢咨询师的饭碗，还是治愈 emo 的良药？", "AI 入局心理健康：是抢咨询师的饭碗，还是治愈 emo 的良药？", "2023年7月22日", "InfoQ"));
-        messageItems.add(new MessageItem(R.drawable.image_message_8, "AI在心理學研究與相關產業的應用", "AI在心理學研究與相關產業的應用", "2023年8月1日", "科学人"));
+        messageItems.add(new MessageItem(R.drawable.image_message_8, "AI在心理学研究与相关产业的应用", "AI在心理學研究與相關產業的應用", "2023年8月1日", "科学人"));
 
         MessageAdapter messageAdapter = new MessageAdapter(messageItems, requireContext());
         informationRecyclerView.setAdapter(messageAdapter);
@@ -237,8 +237,6 @@ public class HomeFragment extends Fragment implements ModuleAdapter.OnModuleClic
         textAppName = view.findViewById(R.id.text_fragment_home_appName); // 初始化 textAppName
         // 加载动画资源
         Animation textAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.text_size_animation);
-
-
         // 设置动画监听器，在动画结束时反转动画
         textAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override

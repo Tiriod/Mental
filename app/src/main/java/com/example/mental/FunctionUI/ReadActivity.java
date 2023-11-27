@@ -25,7 +25,7 @@ public class ReadActivity extends AppCompatActivity {
         RecyclerView headerRecyclerView = findViewById(R.id.ReadHeaderRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         headerRecyclerView.setLayoutManager(layoutManager);
-        String headerText = "心里探索";
+        String headerText = "心理探索";
         HeaderAdapter headerAdapter = new HeaderAdapter(this, headerText);
         headerRecyclerView.setAdapter(headerAdapter);
 
@@ -77,7 +77,7 @@ public class ReadActivity extends AppCompatActivity {
         BookAdapter historyAdapter = new BookAdapter(this, historyBookItems);
         recyclerView_read_history.setAdapter(historyAdapter);
 
-        // 设置书库组: 中外历史
+        // 设置书库组: 经典名著
         RecyclerView recyclerView_read_classics = findViewById(R.id.recyclerView_read_classics);
         LinearLayoutManager classicsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView_read_classics.setLayoutManager(classicsLayoutManager);

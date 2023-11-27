@@ -230,8 +230,6 @@ public class NoteActivity extends AppCompatActivity {
                         emotionCardAdapter.notifyDataSetChanged();
                     }
                 }, 2000); // 1000毫秒 = 1秒
-
-
             }
         });
 

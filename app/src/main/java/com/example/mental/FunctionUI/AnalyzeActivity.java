@@ -110,7 +110,5 @@ public class AnalyzeActivity extends AppCompatActivity {
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
         pieChart.invalidate(); // 刷新图表
-
-
     }
 }
